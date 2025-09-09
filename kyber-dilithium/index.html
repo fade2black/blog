@@ -342,6 +342,57 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Communication Flow Using Kyber + Dilithium">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -466,6 +517,57 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Communication Flow Using Kyber + Dilithium">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -516,79 +618,92 @@
 <li><code>keys/dil_sk.txt</code>: the secret key (only accessible by the server)</li>
 </ul>
 <p>Let’s walk through the communication process.</p>
-<p><strong>Roles</strong>
-- Client (initiates the communication)
-- Server (responds and proves identity)</p>
-<p><strong>Step 1</strong>: Client initiates communication
-- Client sends communication request (e.g. opens a TCP connection to the Server)
-- This is just the initial network setup — no cryptography yet.</p>
-<p><strong>Step 2</strong>: Server sends its Kyber public key + Dilithium signature
-Server 
- - already has a pair of digital signature (dilithium) keys: <code>(pk_dil, sk_dil)</code>
- - generates a pair of Kyber keys: <code>(pk_kyber, sk_kyber)</code>
- - signs its Kyber public key using its Dilithium secret key: <code>signature = sign(pk_kyber, sk_dil)</code>
- - sends the following payload to the client 
- <code>json
- {
-    "pk_kyber": "...",
-    "signature": "..."
- }</code>
- <strong>Step 3: Client verifies the signature</strong>
- Client
- - already has Server's Dilithium public key (<code>pk_dil</code>) through some trusted method (e.g., certificate, config, or manual distribution)
- - verifies: <code>verify(pk_kyber, signature, pk_dil)</code>
- - terminates the connection (because the client can’t trust that the key is really from the server) if the client is unable to verify the signature, otherwise the client trusts the server.
-- generates and secret key and encapsulates it using Server's Kyber public key: <code>(ciphertext, shared_secret) = encapsulate(pk_kyber, rng)</code>
-- sends the <code>ciphertext</code> to the Server.</p>
-<p><strong>Step 4: Server decpasulates the ciphertext</strong>
-Server
-- receives the ciphertext and uses its Kyber secret key to recover the shared secret: <code>shared_secret = decapsulate(ciphertext, sk_kyber)</code></p>
+<p><strong>Roles:</strong></p>
+<ul>
+<li>Client </li>
+<li>Server</li>
+</ul>
+<hr />
+<h3 id="step-1">Step 1</h3>
+<p>Client initiates communication.</p>
+<ul>
+<li>Client sends communication request (e.g. opens a TCP connection to the Server)</li>
+<li>This is just the initial network setup — no cryptography yet.</li>
+</ul>
+<h3 id="step-2">Step 2</h3>
+<p>Server sends its Kyber public key + Dilithium signature. Server </p>
+<ul>
+<li>already has a pair of digital signature (dilithium) keys: <code>(pk_dil, sk_dil)</code></li>
+<li>generates a pair of Kyber keys: <code>(pk_kyber, sk_kyber)</code></li>
+<li>signs its Kyber public key using its Dilithium secret key: <code>signature = sign(pk_kyber, sk_dil)</code></li>
+<li>sends the following payload to the client </li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nt">&quot;pk_kyber&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;signature&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="step-3">Step 3</h3>
+<p>Client verifies the signature. Client</p>
+<ul>
+<li>already has Server's Dilithium public key (<code>pk_dil</code>) through some trusted method (e.g., certificate, config, or manual distribution)</li>
+<li>verifies: <code>verify(pk_kyber, signature, pk_dil)</code></li>
+<li>terminates the connection (because the client can’t trust that the key is really from the server) if the client is unable to verify the signature, otherwise the client trusts the server.</li>
+<li>generates and secret key and encapsulates it using Server's Kyber public key: <code>(ciphertext, shared_secret) = encapsulate(pk_kyber, rng)</code></li>
+<li>sends the <code>ciphertext</code> to the Server.</li>
+</ul>
+<h3 id="step-4">Step 4</h3>
+<p>Server decpasulates the ciphertext. Server receives the ciphertext and uses its Kyber secret key to recover the shared secret: <code>shared_secret = decapsulate(ciphertext, sk_kyber)</code></p>
 <p>Now both Client and Server share the same secret.</p>
-<p><strong>Step 5: Secure symmetric communication begins</strong>
-With the shared secret established, Server and Client switch to symmetric encryption (like AES-GCM) for fast, secure communication.</p>
+<h3 id="step-5">Step 5</h3>
+<p>Secure symmetric communication begins. </p>
+<hr />
+<p>With the shared secret established, Server and Client switch to symmetric encryption (like AES-GCM) for fast, secure communication.</p>
 <h2 id="demo-secure-communication-in-rust-using-kyber-dilithium-aes-gcm">Demo: Secure Communication in Rust Using Kyber + Dilithium + AES-GCM</h2>
 <p>The full example is available in <a href="https://github.com/fade2black/kyber-dilithium-demo">my GitHub repository</a>, but here’s the core part of the demo (the <code>main.rs</code> file) which ties everything together.</p>
-<p>This simple Rust program demonstrates:
-- how a client and server establish a shared secret using Kyber
-- how the server proves its identity using Dilithium signatures
-- and how both parties securely communicate using AES-GCM symmetric encryption</p>
-<div class="language-rust highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">use</span><span class="w"> </span><span class="n">kyber_playground</span><span class="p">::</span><span class="n">Server</span><span class="p">;</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">use</span><span class="w"> </span><span class="n">kyber_playground</span><span class="p">::</span><span class="n">Client</span><span class="p">;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">   </span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Client</span><span class="p">::</span><span class="n">new</span><span class="p">();</span><span class="w"> </span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">client_messages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;Hi!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;What&#39;s up!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Me also good!&quot;</span><span class="p">];</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">Server</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">server_messages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;Hi!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;All good! You?&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Glad to hear from you!&quot;</span><span class="p">];</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="c1">// Client initiates a communication.</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="c1">// Server accepts the connection and generates a (kyber public key, signature of the public key) pair. </span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">pk</span><span class="p">,</span><span class="w"> </span><span class="n">sig</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">generate_pk_and_sig</span><span class="p">();</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="c1">// Server sends the public key and signature to the client over a network.</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="c1">// Client recieves the payload, verifies the public key, generates</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="c1">// a secret key, encapsulates it, and sends it back to the server.</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">ciphertext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">accept_pk_and_sig</span><span class="p">(</span><span class="n">pk</span><span class="p">,</span><span class="w"> </span><span class="n">sig</span><span class="p">);</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="c1">// Server recieves the ciphertext and decapsulates it.</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="n">server</span><span class="p">.</span><span class="n">accept_ciphertext</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">);</span>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="c1">// At this stage both client and server have a shared secert key</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="c1">// and now can securely communicate using one of secert key algorithms.</span>
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="c1">// e.g. AES-GCM</span>
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">    </span><span class="c1">// Server and client start to communicate.</span>
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="mi">3</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">plaintext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client_messages</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">as_bytes</span><span class="p">();</span>
-</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">nonce</span><span class="p">,</span><span class="w"> </span><span class="n">ciphertext</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">encrypt_message</span><span class="p">(</span><span class="n">plaintext</span><span class="p">);</span>
-</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">        </span><span class="c1">// Client sends the nonce and ciphertext over netwwork to the server </span>
-</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">decrypted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">decrypt_message</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ciphertext</span><span class="p">,</span><span class="w"> </span><span class="n">nonce</span><span class="p">);</span>
-</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Client: {:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from_utf8</span><span class="p">(</span><span class="n">decrypted</span><span class="p">).</span><span class="n">unwrap</span><span class="p">());</span>
-</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>
-</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">plaintext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server_messages</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">as_bytes</span><span class="p">();</span>
-</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">nonce</span><span class="p">,</span><span class="w"> </span><span class="n">ciphertext</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">encrypt_message</span><span class="p">(</span><span class="n">plaintext</span><span class="p">);</span>
-</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">         </span><span class="c1">// Server replies with the nonce and ciphertext over netwwork to the client</span>
-</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">decrypted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">decrypt_message</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ciphertext</span><span class="p">,</span><span class="w"> </span><span class="n">nonce</span><span class="p">);</span>
-</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Server: {:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from_utf8</span><span class="p">(</span><span class="n">decrypted</span><span class="p">).</span><span class="n">unwrap</span><span class="p">());</span>
-</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">    </span><span class="p">}</span><span class="w">                </span>
-</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="p">}</span>
+<p>This simple Rust program demonstrates:</p>
+<ul>
+<li>how a client and server establish a shared secret using Kyber</li>
+<li>how the server proves its identity using Dilithium signatures</li>
+<li>and how both parties securely communicate using AES-GCM symmetric encryption</li>
+</ul>
+<div class="language-rust highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">use</span><span class="w"> </span><span class="n">kyber_playground</span><span class="p">::</span><span class="n">Server</span><span class="p">;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">use</span><span class="w"> </span><span class="n">kyber_playground</span><span class="p">::</span><span class="n">Client</span><span class="p">;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">   </span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Client</span><span class="p">::</span><span class="n">new</span><span class="p">();</span><span class="w"> </span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">client_messages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;Hi!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;What&#39;s up!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Me also good!&quot;</span><span class="p">];</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">Server</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">server_messages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;Hi!&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;All good! You?&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Glad to hear from you!&quot;</span><span class="p">];</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="c1">// Client initiates a communication.</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="c1">// Server accepts the connection and generates a (kyber public key, signature of the public key) pair. </span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">pk</span><span class="p">,</span><span class="w"> </span><span class="n">sig</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">generate_pk_and_sig</span><span class="p">();</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="c1">// Server sends the public key and signature to the client over a network.</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="c1">// Client recieves the payload, verifies the public key, generates</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="c1">// a secret key, encapsulates it, and sends it back to the server.</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">ciphertext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">accept_pk_and_sig</span><span class="p">(</span><span class="n">pk</span><span class="p">,</span><span class="w"> </span><span class="n">sig</span><span class="p">);</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="c1">// Server recieves the ciphertext and decapsulates it.</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span><span class="n">server</span><span class="p">.</span><span class="n">accept_ciphertext</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">);</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="c1">// At this stage both client and server have a shared secert key</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">    </span><span class="c1">// and now can securely communicate using one of secert key algorithms.</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="c1">// e.g. AES-GCM</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="c1">// Server and client start to communicate.</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="mi">3</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">plaintext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client_messages</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">as_bytes</span><span class="p">();</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">nonce</span><span class="p">,</span><span class="w"> </span><span class="n">ciphertext</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">encrypt_message</span><span class="p">(</span><span class="n">plaintext</span><span class="p">);</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">        </span><span class="c1">// Client sends the nonce and ciphertext over netwwork to the server </span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">decrypted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">decrypt_message</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ciphertext</span><span class="p">,</span><span class="w"> </span><span class="n">nonce</span><span class="p">);</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Client: {:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from_utf8</span><span class="p">(</span><span class="n">decrypted</span><span class="p">).</span><span class="n">unwrap</span><span class="p">());</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">plaintext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server_messages</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">as_bytes</span><span class="p">();</span>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">nonce</span><span class="p">,</span><span class="w"> </span><span class="n">ciphertext</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">server</span><span class="p">.</span><span class="n">encrypt_message</span><span class="p">(</span><span class="n">plaintext</span><span class="p">);</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">         </span><span class="c1">// Server replies with the nonce and ciphertext over netwwork to the client</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">decrypted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">decrypt_message</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ciphertext</span><span class="p">,</span><span class="w"> </span><span class="n">nonce</span><span class="p">);</span>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Server: {:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from_utf8</span><span class="p">(</span><span class="n">decrypted</span><span class="p">).</span><span class="n">unwrap</span><span class="p">());</span>
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w">    </span><span class="p">}</span><span class="w">                </span>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>This example demonstrates just the high-level flow. If you’re curious about the implementation details—like how keys are loaded from files, how Kyber and Dilithium are integrated, or how AES-GCM is used under the hood—feel free to explore the <a href="https://github.com/fade2black/kyber-dilithium-demo">full source code</a> on GitHub.</p>
 <p>In the next part, I’m planning to expand the demo into a more realistic setup, with separate client and server processes communicating over a network using the TCP protocol. This version will include key exchange and secure message transmission using symmetric encryption (AES-GCM) in a real network environment.</p>
