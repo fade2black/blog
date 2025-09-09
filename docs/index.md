@@ -6,7 +6,7 @@ Find me on [LinkedIn](https://www.linkedin.com/in/bayramk/) and [Github](https:/
 
 ---
 
-# Archive
+# All Articles
 
 ## [Secure Communication with Kyber and Dilithium in Rust](kyber-dilithium.md)
 
@@ -20,6 +20,15 @@ What Is Post-Quantum Cryptography? Quantum computers are no longer just science 
 ## [Implementing Distributed Cron Jobs with etcd](kyber-dilithium.md)
 
 [<div class="abstract">
-Introduction In this article I’ll walk you through a project I built using Rust that acts as a distributed cron scheduler. This project allows users to add, list, and remove cron jobs via a set of RESTful endpoints. The system continuously monitors the current time, ensuring that scheduled tasks ...
+In this article I’ll walk you through a project I built using Rust that acts as a distributed cron scheduler. This project allows users to add, list, and remove cron jobs via a set of RESTful endpoints. The system continuously monitors the current time, ensuring that scheduled tasks ...
+</div>](kyber-dilithium.md)
+<div class="date-published">16 Feb 2025</div>
+
+---
+
+## [Building Leader Election in Distributed Systems with etcd](leader-election.md)
+
+[<div class="abstract">
+In distributed systems, leader election is a critical process that ensures coordination and consistency across multiple nodes. One way to implement leader election is through the use of a reliable key-value store, such as etcd. In this article, I'll explore how to implement a simple leader election implementation in Rust using an etcd server. ...
 </div>](kyber-dilithium.md)
 <div class="date-published">07 Feb 2025</div>
