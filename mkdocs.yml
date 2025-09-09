@@ -1,4 +1,5 @@
 site_name: Articles
+site_url: https://fade2black.github.io/blog/
 
 markdown_extensions:
   - pymdownx.highlight:
