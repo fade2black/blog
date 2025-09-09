@@ -1,1 +1,42 @@
-site_name: My Docs
+site_name: Articles
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - tables
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+extra_css:
+  - stylesheets/extra.css
+theme:
+  name: material
+  highlightjs: true
+  palette:
+    scheme: slate
+    primary: indigo
+    accent: pink
+
+nav:
+  - Home: index.md
+  - Articles:
+    - Kyber-Dilithium: kyber-dilithium.md
+    - Distributed Cron: dcron.md
+    - Leader Election: leader-election.md
+  
+  
+
+    

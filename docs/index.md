@@ -1,17 +1,25 @@
-# Welcome to MkDocs
+# Welcome to my Perosnal Blog
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+This blog is a space where I share my journey with the Rust programming language. Here, you’ll find my thoughts, experiments, and results as I explore Rust, cryptography, distributed systems, and cloud computing world. I’ll also share useful code snippets and tips that I’ve learned along the way. 
 
-## Commands
+Find me on [LinkedIn](https://www.linkedin.com/in/bayramk/) and [Github](https://github.com/fade2black).
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+---
 
-## Project layout
+# Archive
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+## [Secure Communication with Kyber and Dilithium in Rust](kyber-dilithium.md)
+
+[<div class="abstract">
+What Is Post-Quantum Cryptography? Quantum computers are no longer just science fiction—they’re getting real. And with them comes a big challenge: they could break many of the cryptographic systems we rely on today to keep our data safe. Most current encryption methods, like RSA or Elliptic Curve Cryptography,...
+</div>](kyber-dilithium.md)
+<div class="date-published">21 Jul 2025</div>
+
+---
+
+## [Implementing Distributed Cron Jobs with etcd](kyber-dilithium.md)
+
+[<div class="abstract">
+Introduction In this article I’ll walk you through a project I built using Rust that acts as a distributed cron scheduler. This project allows users to add, list, and remove cron jobs via a set of RESTful endpoints. The system continuously monitors the current time, ensuring that scheduled tasks ...
+</div>](kyber-dilithium.md)
+<div class="date-published">07 Feb 2025</div>
