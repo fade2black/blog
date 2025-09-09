@@ -36,48 +36,62 @@ For the sake of the example, I pre-generated a Dilithium key pair and stored it 
 
 Let’s walk through the communication process.
 
-__Roles__
-- Client (initiates the communication)
-- Server (responds and proves identity)
+__Roles:__
 
-__Step 1__: Client initiates communication
+- Client 
+- Server
+
+---
+
+### Step 1
+Client initiates communication.
+ 
 - Client sends communication request (e.g. opens a TCP connection to the Server)
 - This is just the initial network setup — no cryptography yet.
 
-__Step 2__: Server sends its Kyber public key + Dilithium signature
-Server 
- - already has a pair of digital signature (dilithium) keys: `(pk_dil, sk_dil)`
- - generates a pair of Kyber keys: `(pk_kyber, sk_kyber)`
- - signs its Kyber public key using its Dilithium secret key: `signature = sign(pk_kyber, sk_dil)`
- - sends the following payload to the client 
- ```json
- {
+
+### Step 2 
+
+Server sends its Kyber public key + Dilithium signature. Server 
+
+- already has a pair of digital signature (dilithium) keys: `(pk_dil, sk_dil)`
+- generates a pair of Kyber keys: `(pk_kyber, sk_kyber)`
+- signs its Kyber public key using its Dilithium secret key: `signature = sign(pk_kyber, sk_dil)`
+- sends the following payload to the client 
+
+```json
+{
     "pk_kyber": "...",
     "signature": "..."
- }
+}
 ```
- __Step 3: Client verifies the signature__
- Client
- - already has Server's Dilithium public key (`pk_dil`) through some trusted method (e.g., certificate, config, or manual distribution)
- - verifies: `verify(pk_kyber, signature, pk_dil)`
- - terminates the connection (because the client can’t trust that the key is really from the server) if the client is unable to verify the signature, otherwise the client trusts the server.
+
+### Step 3
+Client verifies the signature. Client
+ 
+- already has Server's Dilithium public key (`pk_dil`) through some trusted method (e.g., certificate, config, or manual distribution)
+- verifies: `verify(pk_kyber, signature, pk_dil)`
+- terminates the connection (because the client can’t trust that the key is really from the server) if the client is unable to verify the signature, otherwise the client trusts the server.
 - generates and secret key and encapsulates it using Server's Kyber public key: `(ciphertext, shared_secret) = encapsulate(pk_kyber, rng)`
 - sends the `ciphertext` to the Server.
 
-__Step 4: Server decpasulates the ciphertext__
-Server
-- receives the ciphertext and uses its Kyber secret key to recover the shared secret: `shared_secret = decapsulate(ciphertext, sk_kyber)`
+### Step 4 
+Server decpasulates the ciphertext. Server receives the ciphertext and uses its Kyber secret key to recover the shared secret: `shared_secret = decapsulate(ciphertext, sk_kyber)`
 
 Now both Client and Server share the same secret.
 
-__Step 5: Secure symmetric communication begins__
-With the shared secret established, Server and Client switch to symmetric encryption (like AES-GCM) for fast, secure communication.
+### Step 5
+Secure symmetric communication begins. 
 
+---
+
+With the shared secret established, Server and Client switch to symmetric encryption (like AES-GCM) for fast, secure communication.
 
 ## Demo: Secure Communication in Rust Using Kyber + Dilithium + AES-GCM
 The full example is available in [my GitHub repository](https://github.com/fade2black/kyber-dilithium-demo), but here’s the core part of the demo (the `main.rs` file) which ties everything together.
 
 This simple Rust program demonstrates:
+
 - how a client and server establish a shared secret using Kyber
 - how the server proves its identity using Dilithium signatures
 - and how both parties securely communicate using AES-GCM symmetric encryption
