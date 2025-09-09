@@ -1,17 +1,13 @@
-name: CI
-
+name: ci 
 on:
-  pull_request:
   push:
-    branches: [ main ]
-
+    branches:
+      - master 
+      - main
 permissions:
   contents: write
-  pages: write
-  id-token: write
-  
 jobs:
-  deploy_docs:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
