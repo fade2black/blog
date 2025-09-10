@@ -1,4 +1,4 @@
-<div class="date-published">21 Jul 2025</div>
+<div class="meta-data">21 jul 20205 </div>
 
 # Secure Communication with Kyber and Dilithium in Rust
 
@@ -41,7 +41,6 @@ __Roles:__
 - Client 
 - Server
 
----
 
 ### Step 1
 Client initiates communication.
@@ -71,21 +70,38 @@ Client verifies the signature. Client
  
 - already has Server's Dilithium public key (`pk_dil`) through some trusted method (e.g., certificate, config, or manual distribution)
 - verifies: `verify(pk_kyber, signature, pk_dil)`
-- terminates the connection (because the client can’t trust that the key is really from the server) if the client is unable to verify the signature, otherwise the client trusts the server.
+- if the client is unable to verify the signature then terminates the connection (because the client can’t trust that the key is really from the server), otherwise the client trusts the server.
 - generates and secret key and encapsulates it using Server's Kyber public key: `(ciphertext, shared_secret) = encapsulate(pk_kyber, rng)`
 - sends the `ciphertext` to the Server.
 
 ### Step 4 
-Server decpasulates the ciphertext. Server receives the ciphertext and uses its Kyber secret key to recover the shared secret: `shared_secret = decapsulate(ciphertext, sk_kyber)`
+Server decapsulates the ciphertext. Server receives the ciphertext and uses its Kyber secret key to recover the shared secret: `shared_secret = decapsulate(ciphertext, sk_kyber)`
 
 Now both Client and Server share the same secret.
 
 ### Step 5
 Secure symmetric communication begins. 
 
----
 
 With the shared secret established, Server and Client switch to symmetric encryption (like AES-GCM) for fast, secure communication.
+
+### Sequence Diagram
+```mermaid
+sequenceDiagram
+    Note left of Server: Server has (pk_dil, sk_dil)
+    Client->>Server: Initial request
+    Server-->>Server: Generate [pk_kyber, sk_kyber]
+    Server-->>Server: signature = sign(pk_kyber, sk_dil)
+    Server->>Client: [pk_kyber, signature]
+
+    Note right of Client: Client tries to verify the signature.
+    Client-->>Client: verify(pk_kyber, signature, pk_dil)
+    Client-->>Client: if unable to verify stop here, <br> can’t trust.
+    Client-->>Client: Generate a secret key and encapsulate it <br> [ciphertext, shared_secret] = encapsulate(pk_kyber, rng)
+    Client->>Server: ciphertext
+    Server-->>Server: shared_secret = decapsulate(ciphertext, sk_kyber)
+    Note over Server, Client: Client and Server share the same secret.
+```
 
 ## Demo: Secure Communication in Rust Using Kyber + Dilithium + AES-GCM
 The full example is available in [my GitHub repository](https://github.com/fade2black/kyber-dilithium-demo), but here’s the core part of the demo (the `main.rs` file) which ties everything together.

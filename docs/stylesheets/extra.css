@@ -19,7 +19,7 @@
   color: gray;
 }
 
-.date-published {
+.meta-data {
   font-family: var(--font-family);
   font-size: 12px;
   color: gray;
@@ -31,4 +31,10 @@
 .abstract a {
   text-decoration: none !important;
   color: inherit !important;
+}
+
+
+.mk .note {
+  stroke: #decc93;
+  fill: #fff5ad;
 }

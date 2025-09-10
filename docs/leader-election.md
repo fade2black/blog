@@ -1,4 +1,4 @@
-<div class="date-published">07 Feb 2025</div>
+<div class="meta-data">16 feb 20205 </div>
 
 # Building Leader Election in Distributed Systems with etcd
 
