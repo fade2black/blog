@@ -390,6 +390,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#sequence-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence Diagram
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -565,6 +574,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#sequence-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence Diagram
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -595,7 +613,7 @@
 
 
 
-<div class="date-published">21 Jul 2025</div>
+<div class="meta-data">21 jul 20205 </div>
 
 <h1 id="secure-communication-with-kyber-and-dilithium-in-rust">Secure Communication with Kyber and Dilithium in Rust</h1>
 <h2 id="what-is-post-quantum-cryptography">What Is Post-Quantum Cryptography?</h2>
@@ -623,7 +641,6 @@
 <li>Client </li>
 <li>Server</li>
 </ul>
-<hr />
 <h3 id="step-1">Step 1</h3>
 <p>Client initiates communication.</p>
 <ul>
@@ -648,17 +665,31 @@
 <ul>
 <li>already has Server's Dilithium public key (<code>pk_dil</code>) through some trusted method (e.g., certificate, config, or manual distribution)</li>
 <li>verifies: <code>verify(pk_kyber, signature, pk_dil)</code></li>
-<li>terminates the connection (because the client can’t trust that the key is really from the server) if the client is unable to verify the signature, otherwise the client trusts the server.</li>
+<li>if the client is unable to verify the signature then terminates the connection (because the client can’t trust that the key is really from the server), otherwise the client trusts the server.</li>
 <li>generates and secret key and encapsulates it using Server's Kyber public key: <code>(ciphertext, shared_secret) = encapsulate(pk_kyber, rng)</code></li>
 <li>sends the <code>ciphertext</code> to the Server.</li>
 </ul>
 <h3 id="step-4">Step 4</h3>
-<p>Server decpasulates the ciphertext. Server receives the ciphertext and uses its Kyber secret key to recover the shared secret: <code>shared_secret = decapsulate(ciphertext, sk_kyber)</code></p>
+<p>Server decapsulates the ciphertext. Server receives the ciphertext and uses its Kyber secret key to recover the shared secret: <code>shared_secret = decapsulate(ciphertext, sk_kyber)</code></p>
 <p>Now both Client and Server share the same secret.</p>
 <h3 id="step-5">Step 5</h3>
 <p>Secure symmetric communication begins. </p>
-<hr />
 <p>With the shared secret established, Server and Client switch to symmetric encryption (like AES-GCM) for fast, secure communication.</p>
+<h3 id="sequence-diagram">Sequence Diagram</h3>
+<pre class="mermaid"><code>sequenceDiagram
+    Note left of Server: Server has (pk_dil, sk_dil)
+    Client-&gt;&gt;Server: Initial request
+    Server--&gt;&gt;Server: Generate [pk_kyber, sk_kyber]
+    Server--&gt;&gt;Server: signature = sign(pk_kyber, sk_dil)
+    Server-&gt;&gt;Client: [pk_kyber, signature]
+
+    Note right of Client: Client tries to verify the signature.
+    Client--&gt;&gt;Client: verify(pk_kyber, signature, pk_dil)
+    Client--&gt;&gt;Client: if unable to verify stop here, &lt;br&gt; can’t trust.
+    Client--&gt;&gt;Client: Generate a secret key and encapsulate it &lt;br&gt; [ciphertext, shared_secret] = encapsulate(pk_kyber, rng)
+    Client-&gt;&gt;Server: ciphertext
+    Server--&gt;&gt;Server: shared_secret = decapsulate(ciphertext, sk_kyber)
+    Note over Server, Client: Client and Server share the same secret.</code></pre>
 <h2 id="demo-secure-communication-in-rust-using-kyber-dilithium-aes-gcm">Demo: Secure Communication in Rust Using Kyber + Dilithium + AES-GCM</h2>
 <p>The full example is available in <a href="https://github.com/fade2black/kyber-dilithium-demo">my GitHub repository</a>, but here’s the core part of the demo (the <code>main.rs</code> file) which ties everything together.</p>
 <p>This simple Rust program demonstrates:</p>
