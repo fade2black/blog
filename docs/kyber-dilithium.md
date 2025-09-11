@@ -88,6 +88,7 @@ With the shared secret established, Server and Client switch to symmetric encryp
 ### Sequence Diagram
 ```mermaid
 sequenceDiagram
+    autonumber
     Note left of Server: Server has (pk_dil, sk_dil)
     Client->>Server: Initial request
     Server-->>Server: Generate [pk_kyber, sk_kyber]
