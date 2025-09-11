@@ -33,8 +33,10 @@
   color: inherit !important;
 }
 
-
-.mk .note {
-  stroke: #decc93;
-  fill: #fff5ad;
+[data-md-color-scheme="slate"] {
+  --md-mermaid-sequence-actor-bg-color: #22283e;   /* dark background */
+  --md-mermaid-sequence-actor-border-color: #4b62e3; 
+  --md-mermaid-node-bg-color: #22283e;
+  --md-mermaid-node-fg-color: #3e4fae;
 }
+

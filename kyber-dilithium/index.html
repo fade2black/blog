@@ -677,6 +677,7 @@
 <p>With the shared secret established, Server and Client switch to symmetric encryption (like AES-GCM) for fast, secure communication.</p>
 <h3 id="sequence-diagram">Sequence Diagram</h3>
 <pre class="mermaid"><code>sequenceDiagram
+    autonumber
     Note left of Server: Server has (pk_dil, sk_dil)
     Client-&gt;&gt;Server: Initial request
     Server--&gt;&gt;Server: Generate [pk_kyber, sk_kyber]
