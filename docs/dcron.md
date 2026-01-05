@@ -113,3 +113,4 @@ Another option is to create a Kubernetes deployment with three replicas of the s
 ## Conclusion
 
 While this simple project is by no means a replacement for established frameworks like [Kubernetes' CronJob](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/), it served as an exploration of Rust's asynchronous features and the functionality of the etcd server. By building this distributed cron scheduler, I gained valuable hands-on experience with these tools and saw how they can be leveraged in real-world applications.
+The full source code is available on [GitHub](https://github.com/fade2black/dcron)

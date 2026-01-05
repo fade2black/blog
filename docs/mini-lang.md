@@ -330,3 +330,4 @@ or generator tools in favor of handwritten components.
 By keeping the language small and the type system uniform, the focus stays on the essential pipeline: lexing, parsing, AST construction, and code generation. 
 Targeting WebAssembly made the output both concrete and inspectable, allowing each design decision to be traced directly to emitted WAT and wasm instructions.
 While the compiler is intentionally minimal, it provides a complete, end-to-end implementation that can serve as a foundation for experimentation, extension, or simply a deeper understanding of how compilers work under the hood.
+The full source code is available on [GitHub](https://github.com/fade2black/mini-language/blob/main/README.md)
