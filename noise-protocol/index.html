@@ -1,0 +1,930 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fade2black.github.io/blog/noise-protocol/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Noise Protocol Framework - Articles</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#noise-protocol-framework" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Articles" class="md-header__button md-logo" aria-label="Articles" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Articles
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Noise Protocol Framework
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Articles" class="md-nav__button md-logo" aria-label="Articles" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Articles
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Articles
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Articles
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kyber-dilithium/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kyber-Dilithium
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcron/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distributed Cron
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../leader-election/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Leader Election
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mini-lang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functional Language Compiler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#noise-token-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      Noise Token Breakdown
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Noise Token Breakdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-e-ephemeral-key-sendreceive" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. e — Ephemeral Key (send/receive)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-s-static-key-sendreceive" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. s — Static Key (send/receive)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ee-diffie-hellman-ephemeral-ephemeral" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. ee — Diffie-Hellman (ephemeral-ephemeral)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-es-diffie-hellman-ephemeral-static" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. es — Diffie-Hellman (ephemeral-static)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-se-diffie-hellman-static-ephemeral" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. se — Diffie-Hellman (static-ephemeral)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-ss-diffie-hellman-static-static" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. ss — Diffie-Hellman (static-static)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-psk-pre-shared-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. psk — Pre-Shared Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-of-each-tokens-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary of Each Token's Role
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-1-nn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 1 (NN)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example 1 (NN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-2-xx" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 2 (XX)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-by-step-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-Step Breakdown:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step-by-Step Breakdown:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-initiator-e-s-message-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Initiator → e, s (Message 1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-responder-e-ee-s-es-message-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Responder ← e, ee, s, es (Message 2)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-initiator-s-se-message-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Initiator → s, se (Message 3)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-of-each-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary of Each Token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-is-this-important" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why is this important?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="noise-protocol-framework">Noise Protocol Framework</h1>
+<h2 id="noise-token-breakdown">Noise Token Breakdown</h2>
+<p>Each token corresponds to an <strong>action</strong> that the <strong>HandshakeState machine</strong> needs to perform. These actions mainly involve <strong>key generation</strong>, <strong>key exchange</strong>, <strong>key mixing</strong>, and <strong>data encryption</strong>.</p>
+<h3 id="1-e-ephemeral-key-sendreceive">1. <code>e</code> — Ephemeral Key (send/receive)</h3>
+<ul>
+<li><strong>Definition:</strong> <code>e</code> refers to an <strong>ephemeral key pair</strong>. It's a <strong>temporary, one-time key</strong> generated by each party for this handshake.</li>
+<li><strong>Purpose:</strong> It helps provide <strong>forward secrecy</strong> — even if your long-term static key gets compromised, the ephemeral key ensures previous sessions are still secure.</li>
+<li>
+<p><strong>Action:</strong></p>
+</li>
+<li>
+<p><strong>Send:</strong> You generate a new ephemeral keypair and send its <strong>public key</strong>.</p>
+</li>
+<li><strong>Receive:</strong> You accept the <strong>remote ephemeral public key</strong> (and later use it in a DH operation).</li>
+</ul>
+<blockquote>
+<p>Example: When you see the token <code>e</code> in the handshake pattern, the initiator is sending an ephemeral public key (their <code>e</code>).</p>
+</blockquote>
+<hr />
+<h3 id="2-s-static-key-sendreceive">2. <code>s</code> — Static Key (send/receive)</h3>
+<ul>
+<li><strong>Definition:</strong> <code>s</code> refers to a <strong>static key pair</strong>, usually long-term (could be your identity).</li>
+<li><strong>Purpose:</strong> This key is used for <strong>authentication</strong> and is often used to identify each party.</li>
+<li>
+<p><strong>Action:</strong></p>
+</li>
+<li>
+<p><strong>Send:</strong> You send your <strong>static public key</strong> encrypted (if the pattern uses encryption).</p>
+</li>
+<li><strong>Receive:</strong> You accept the <strong>remote static public key</strong> and may use it for authentication or further DH operations.</li>
+</ul>
+<blockquote>
+<p>Example: When you see the token <code>s</code>, it means the initiator is sending its static key <strong>encrypted</strong> (in some patterns). The responder may use it to authenticate the initiator's identity.</p>
+</blockquote>
+<hr />
+<h3 id="3-ee-diffie-hellman-ephemeral-ephemeral">3. <code>ee</code> — Diffie-Hellman (ephemeral-ephemeral)</h3>
+<ul>
+<li><strong>Definition:</strong> <code>ee</code> means performing a <strong>Diffie-Hellman (DH) exchange</strong> between the <strong>ephemeral keys</strong> of both parties.</li>
+<li><strong>Purpose:</strong> The result of this DH operation is a shared secret, which is then mixed into the <strong>chaining key (ck)</strong>.</li>
+<li>
+<p><strong>Action:</strong></p>
+</li>
+<li>
+<p>You <strong>do a DH operation</strong> between your ephemeral private key and the <strong>remote party’s ephemeral public key</strong>.</p>
+</li>
+<li>This produces a shared secret, which is then mixed with your existing state (e.g., the handshake hash <code>h</code>).</li>
+</ul>
+<blockquote>
+<p>Example: When you see <code>ee</code>, the initiator and responder are computing <code>DH(e_i, e_r)</code> where <code>e_i</code> and <code>e_r</code> are their respective ephemeral keys.</p>
+</blockquote>
+<hr />
+<h3 id="4-es-diffie-hellman-ephemeral-static">4. <code>es</code> — Diffie-Hellman (ephemeral-static)</h3>
+<ul>
+<li><strong>Definition:</strong> <code>es</code> means performing a <strong>Diffie-Hellman (DH) exchange</strong> between the <strong>ephemeral private key</strong> and the <strong>static public key</strong> of the other party.</li>
+<li><strong>Purpose:</strong> This helps to mix both the ephemeral and static keys into the handshake state.</li>
+<li>
+<p><strong>Action:</strong></p>
+</li>
+<li>
+<p>You <strong>perform DH between your ephemeral private key</strong> and the <strong>remote static public key</strong>.</p>
+</li>
+<li>This mixed secret helps derive the final session keys and secures the handshake.</li>
+</ul>
+<blockquote>
+<p>Example: When you see <code>es</code>, the initiator and responder do <code>DH(e_i, s_r)</code> where <code>e_i</code> is the initiator's ephemeral key and <code>s_r</code> is the responder's static key.</p>
+</blockquote>
+<hr />
+<h3 id="5-se-diffie-hellman-static-ephemeral">5. <code>se</code> — Diffie-Hellman (static-ephemeral)</h3>
+<ul>
+<li><strong>Definition:</strong> <code>se</code> means performing a <strong>Diffie-Hellman (DH) exchange</strong> between the <strong>static private key</strong> and the <strong>ephemeral public key</strong> of the other party.</li>
+<li><strong>Purpose:</strong> Similar to <code>es</code>, it allows the static keys to be securely mixed into the handshake, ensuring both parties’ identities are authenticated.</li>
+<li>
+<p><strong>Action:</strong></p>
+</li>
+<li>
+<p>You <strong>do DH between your static private key</strong> and the <strong>remote ephemeral public key</strong>.</p>
+</li>
+<li>This operation produces a shared secret mixed into the handshake state.</li>
+</ul>
+<blockquote>
+<p>Example: When you see <code>se</code>, the initiator and responder do <code>DH(s_i, e_r)</code> where <code>s_i</code> is the initiator's static key and <code>e_r</code> is the responder's ephemeral key.</p>
+</blockquote>
+<hr />
+<h3 id="6-ss-diffie-hellman-static-static">6. <code>ss</code> — Diffie-Hellman (static-static)</h3>
+<ul>
+<li><strong>Definition:</strong> <code>ss</code> refers to performing a <strong>Diffie-Hellman (DH) exchange</strong> between the <strong>static keys</strong> of both parties.</li>
+<li><strong>Purpose:</strong> This provides the final authentication of both parties’ identities and allows them to mutually verify each other.</li>
+<li>
+<p><strong>Action:</strong></p>
+</li>
+<li>
+<p>You <strong>perform DH between your static private key</strong> and the <strong>remote static public key</strong>.</p>
+</li>
+<li>This is typically the final operation in the handshake.</li>
+</ul>
+<blockquote>
+<p>Example: When you see <code>ss</code>, the initiator and responder do <code>DH(s_i, s_r)</code> where <code>s_i</code> and <code>s_r</code> are their respective static keys.</p>
+</blockquote>
+<hr />
+<h3 id="7-psk-pre-shared-key">7. <code>psk</code> — Pre-Shared Key</h3>
+<ul>
+<li><strong>Definition:</strong> <code>psk</code> refers to a <strong>Pre-Shared Key</strong>, which is a symmetric key that both parties know ahead of time (not generated during the handshake).</li>
+<li><strong>Purpose:</strong> It strengthens the handshake and provides additional protection against certain attacks, like MITM.</li>
+<li>
+<p><strong>Action:</strong></p>
+</li>
+<li>
+<p>The <strong>PSK is mixed into the handshake</strong> at various stages (e.g., <code>psk0</code>, <code>psk1</code>).</p>
+</li>
+<li>This means both parties contribute the PSK into their derived secret(s) for better security.</li>
+</ul>
+<blockquote>
+<p>Example: When you see <code>psk</code>, it means the protocol is mixing in a pre-shared key for added security at specific points (like after the first message or after DH operations).</p>
+</blockquote>
+<hr />
+<h3 id="summary-of-each-tokens-role">Summary of Each Token's Role</h3>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Meaning</th>
+<th>Action/Operation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>e</strong></td>
+<td>Ephemeral key (send/receive)</td>
+<td>Generate &amp; exchange ephemeral public key</td>
+</tr>
+<tr>
+<td><strong>s</strong></td>
+<td>Static key (send/receive)</td>
+<td>Send/receive static key (authenticates identity)</td>
+</tr>
+<tr>
+<td><strong>ee</strong></td>
+<td>DH (ephemeral-ephemeral)</td>
+<td>Perform DH between two ephemeral keys</td>
+</tr>
+<tr>
+<td><strong>es</strong></td>
+<td>DH (ephemeral-static)</td>
+<td>Perform DH between ephemeral private and static public key</td>
+</tr>
+<tr>
+<td><strong>se</strong></td>
+<td>DH (static-ephemeral)</td>
+<td>Perform DH between static private and ephemeral public key</td>
+</tr>
+<tr>
+<td><strong>ss</strong></td>
+<td>DH (static-static)</td>
+<td>Perform DH between two static keys (final verification)</td>
+</tr>
+<tr>
+<td><strong>psk</strong></td>
+<td>Pre-shared key</td>
+<td>Mix a shared symmetric key into the handshake for extra security</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="example-1-nn">Example 1 (<code>NN</code>)</h2>
+<p>Given the handshake pattern:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>-&gt; e
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>&lt;- e, ee
+</span></code></pre></div>
+Here’s what happens</p>
+<p><code>-&gt; e</code></p>
+<ol>
+<li>Initiator generates an ephemeral keypair <code>(e_i.private, e_i.public)</code>.</li>
+<li>Initiator sends <code>[e_i.public]</code></li>
+<li>Responder receives <code>[e_i.public]</code>. The responder stores the initiator’s ephemeral public key for later use.</li>
+</ol>
+<p><code>&lt;- e, ee</code></p>
+<ol>
+<li>The responder generates its own ephemeral keypair <code>(e_r.private, e_r.public)</code>.</li>
+<li>Responder performs <code>shared_secret = DH(e_r.private, e_i.public)</code> and the shared secret is mixed into the internal handshake state to derive symmetric keys.</li>
+<li>Responder sends <code>[e_r.public]</code></li>
+</ol>
+<h3 id="example-2-xx">Example 2 (<code>XX</code>)</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>-&gt; e
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>&lt;- e, ee, s, es
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>-&gt; s, se
+</span></code></pre></div>
+<p><code>-&gt; e</code></p>
+<ol>
+<li>The initiator generates an ephemeral keypair <code>(e_i.prv, e_i.pub)</code>.</li>
+<li>The initiator sends <code>[e_i.pub]</code>.</li>
+<li>Responder receives <code>[e_i.pub]</code>. The responder stores the initiator’s ephemeral public key for later use.</li>
+</ol>
+<p><code>&lt;- e, ee, s, es</code></p>
+<ol>
+<li>The responder generates its own ephemeral keypair <code>(e_r.prv, e_r.pub)</code>.</li>
+<li>The responder performs <code>shared_secret = DH(e_r.prv, e_i.pub)</code> and the shared secret is mixed into the internal handshake state to derive symmetric keys <code>ck</code>.</li>
+<li>The responder performs <code>shared_secret = DH(s_r.prv, e_i.pub)</code> and the shared secret is mixed into the internal handshake state to derive symmetric keys <code>ck</code>.</li>
+<li>The responder sends <code>[e_r.pub, s_r.pub]</code>.</li>
+<li>The initiator recieves <code>[e_r.pub, s_r.pub]</code>.</li>
+</ol>
+<p><code>-&gt; s, se</code></p>
+<ol>
+<li>The initiator computes  <code>shared_secret = DH(s_i.prv, e_r.pub)</code> and the shared secret is mixed into the internal handshake state to derive symmetric keys <code>ck</code>.</li>
+<li>The initiator sends <code>[s_i.pub]</code>.</li>
+</ol>
+<p>The <code>XX</code> handshake pattern involves the following sequence:</p>
+<ol>
+<li><strong>Initiator → e, s</strong></li>
+<li><strong>Responder ← e, ee, s, es</strong></li>
+<li><strong>Initiator → s, se</strong></li>
+</ol>
+<p>Here’s what each token means and how the <strong>initiator</strong> and <strong>responder</strong> exchange messages.</p>
+<hr />
+<h3 id="step-by-step-breakdown"><strong>Step-by-Step Breakdown:</strong></h3>
+<h4 id="1-initiator-e-s-message-1"><strong>1. Initiator → e, s (Message 1)</strong></h4>
+<ul>
+<li><strong><code>e</code> (Ephemeral Key)</strong>: The initiator <strong>generates a new ephemeral key pair</strong> (<code>e_i</code>) and <strong>sends</strong> the <strong>ephemeral public key</strong> (<code>e_i.public</code>) to the responder.</li>
+<li><strong><code>s</code> (Static Key)</strong>: The initiator also <strong>sends</strong> its <strong>static public key</strong> (<code>s_i.public</code>).</li>
+</ul>
+<p><strong>Message 1</strong> sent by the initiator:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Message 1 -&gt; [e_i.public | s_i.public]
+</span></code></pre></div>
+<ul>
+<li><strong>Purpose of <code>e</code></strong>: This ensures <strong>forward secrecy</strong>. The ephemeral key (<code>e_i</code>) will only be used for this session. If the initiator's static key (<code>s_i</code>) gets compromised in the future, this session is still secure due to the ephemeral key.</li>
+<li><strong>Purpose of <code>s</code></strong>: The static key (<code>s_i</code>) is sent to the responder for <strong>authentication</strong>, so the responder can verify who the initiator is.</li>
+</ul>
+<h4 id="2-responder-e-ee-s-es-message-2"><strong>2. Responder ← e, ee, s, es (Message 2)</strong></h4>
+<p>Upon receiving Message 1, the <strong>responder</strong> processes the incoming message.</p>
+<ul>
+<li><strong><code>e</code> (Ephemeral Key)</strong>: The responder receives the <strong>initiator’s ephemeral public key</strong> (<code>e_i.public</code>), which they will use in the <strong>next Diffie-Hellman (DH)</strong> operation.</li>
+<li><strong><code>ee</code> (Ephemeral-Ephemeral DH)</strong>: The responder <strong>generates their own ephemeral key pair</strong> (<code>e_r</code>), and then performs a <strong>Diffie-Hellman</strong> operation between their ephemeral private key (<code>e_r</code>) and the <strong>initiator’s ephemeral public key</strong> (<code>e_i.public</code>). This produces a <strong>shared secret</strong>, which is mixed into the handshake state (<code>ck</code>).</li>
+<li><strong><code>s</code> (Static Key)</strong>: The responder <strong>sends</strong> their <strong>static public key</strong> (<code>s_r.public</code>) to the initiator. This is used for <strong>authentication</strong>.</li>
+<li><strong><code>es</code> (Ephemeral-Static DH)</strong>: The responder performs a <strong>Diffie-Hellman</strong> operation between their <strong>ephemeral private key (<code>e_r</code>)</strong> and the <strong>initiator’s static public key (<code>s_i.public</code>)</strong>. This provides additional mixing of the shared secret into the state (<code>ck</code>).</li>
+</ul>
+<p><strong>Message 2</strong> sent by the responder:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Message 2 &lt;- [e_r.public | encrypted(s_r.public) | e_r, s_r]
+</span></code></pre></div>
+<ul>
+<li><strong>Purpose of <code>ee</code></strong>: The <strong>ephemeral-ephemeral DH</strong> step ensures the responder contributes to the shared secret.</li>
+<li><strong>Purpose of <code>s</code></strong>: The <strong>static public key</strong> allows the initiator to authenticate the responder.</li>
+<li><strong>Purpose of <code>es</code></strong>: The <strong>ephemeral-static DH</strong> operation allows the responder’s ephemeral key to be combined with the initiator’s static key, adding additional entropy to the key exchange.</li>
+</ul>
+<h4 id="3-initiator-s-se-message-3"><strong>3. Initiator → s, se (Message 3)</strong></h4>
+<p>The <strong>initiator</strong> now processes the responder’s message and prepares the final message.</p>
+<ul>
+<li><strong><code>s</code> (Static Key)</strong>: The initiator <strong>receives</strong> the responder’s <strong>static public key</strong> (<code>s_r.public</code>), which they will use for <strong>authentication</strong>.</li>
+<li><strong><code>se</code> (Static-Ephemeral DH)</strong>: The initiator performs <strong>Diffie-Hellman</strong> between their <strong>static private key</strong> (<code>s_i.private</code>) and the responder's <strong>ephemeral public key</strong> (<code>e_r.public</code>). This creates a shared secret that is mixed into the handshake state (<code>ck</code>).</li>
+</ul>
+<p><strong>Message 3</strong> sent by the initiator:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Message 3 -&gt; [encrypted(s_i.public) | e_r.public]
+</span></code></pre></div>
+<ul>
+<li><strong>Purpose of <code>se</code></strong>: This <strong>static-ephemeral DH</strong> operation provides another layer of authentication and key exchange, ensuring both sides can verify each other's identity and derive the final shared secret.</li>
+</ul>
+<hr />
+<h3 id="summary-of-each-token">Summary of Each Token</h3>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Meaning</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>e</strong></td>
+<td><strong>Ephemeral Key (send)</strong></td>
+<td>Initiator generates a new ephemeral key pair and sends the <strong>ephemeral public key</strong> (<code>e_i.public</code>) to the responder.</td>
+</tr>
+<tr>
+<td><strong>s</strong></td>
+<td><strong>Static Key (send)</strong></td>
+<td>Initiator sends its <strong>static public key</strong> (<code>s_i.public</code>) to the responder for authentication.</td>
+</tr>
+<tr>
+<td><strong>ee</strong></td>
+<td><strong>Ephemeral-Ephemeral Diffie-Hellman</strong></td>
+<td>Responder generates their ephemeral key pair (<code>e_r</code>) and performs DH with initiator's ephemeral key (<code>e_i.public</code>) to derive a shared secret.</td>
+</tr>
+<tr>
+<td><strong>s</strong></td>
+<td><strong>Static Key (send)</strong></td>
+<td>Responder sends their <strong>static public key</strong> (<code>s_r.public</code>) to the initiator for authentication.</td>
+</tr>
+<tr>
+<td><strong>es</strong></td>
+<td><strong>Ephemeral-Static Diffie-Hellman</strong></td>
+<td>Responder performs DH with their ephemeral private key (<code>e_r.private</code>) and initiator’s static public key (<code>s_i.public</code>).</td>
+</tr>
+<tr>
+<td><strong>se</strong></td>
+<td><strong>Static-Ephemeral Diffie-Hellman</strong></td>
+<td>Initiator performs DH between their static private key (<code>s_i.private</code>) and responder’s ephemeral public key (<code>e_r.public</code>).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="why-is-this-important">Why is this important?</h3>
+<p>The <strong><code>XX</code> handshake pattern</strong> combines:</p>
+<ul>
+<li><strong>Ephemeral Diffie-Hellman</strong> (<code>e</code>, <code>ee</code>, <code>se</code>) to ensure <strong>forward secrecy</strong> and mutual key derivation.</li>
+<li><strong>Static keys</strong> (<code>s</code>, <code>s</code>) for <strong>authentication</strong>.</li>
+</ul>
+<p>This ensures that both parties are able to <strong>securely derive a shared secret</strong> while also <strong>authenticating</strong> each other’s identity.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
