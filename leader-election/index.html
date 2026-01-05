@@ -573,7 +573,8 @@ At the same time, nodes observe election proclamations in order, as made by the 
 <p>where the <code>host</code> and <code>port</code> refer to the URL and port number of the etcd server used to interact with the etcd cluster.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>eader election is a critical component in distributed systems, ensuring high availability and fault tolerance. The implementation discussed here serves as a starting point, but to build a production-ready leader election system, it’s important to consider additional nuances specific to your use case. For example, factors like network partitioning, node failure handling, and consistency guarantees should be carefully addressed.
-For a deeper dive into best practices, AWS provides insights and best-practice <a href="https://aws.amazon.com/builders-library/leader-election-in-distributed-systems/#:~:text=Leader%20election%20is%20the%20simple,all%20requests%20in%20the%20system.">recommendations</a>.</p>
+For a deeper dive into best practices, AWS provides insights and best-practice <a href="https://aws.amazon.com/builders-library/leader-election-in-distributed-systems/#:~:text=Leader%20election%20is%20the%20simple,all%20requests%20in%20the%20system.">recommendations</a>.
+You can find the full implementation <a href="https://github.com/fade2black/node">here</a>.</p>
 
 
 
