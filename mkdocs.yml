@@ -34,7 +34,7 @@ theme:
 nav:
   - Home: index.md
   - Articles:
-    - Kyber-Dilithium: kyber-dilithium.md
-    - Distributed Cron: dcron.md
-    - Leader Election: leader-election.md
-  
+      - Kyber-Dilithium: kyber-dilithium.md
+      - Distributed Cron: dcron.md
+      - Leader Election: leader-election.md
+      - Functional Language Compiler: mini-lang.md

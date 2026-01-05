@@ -1,4 +1,4 @@
-<div class="meta-data">21 jul 20205 </div>
+<div class="meta-data">21 jul 2025 </div>
 
 # Secure Communication with Kyber and Dilithium in Rust
 

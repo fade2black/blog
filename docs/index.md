@@ -8,6 +8,7 @@ Find me on [LinkedIn](https://www.linkedin.com/in/bayramk/) and [Github](https:/
 
 # All Articles
 
+
 ## [Secure Communication with Kyber and Dilithium in Rust](kyber-dilithium.md)
 
 [<div class="abstract">
@@ -32,3 +33,12 @@ In this article I’ll walk you through a project I built using Rust that acts a
 In distributed systems, leader election is a critical process that ensures coordination and consistency across multiple nodes. One way to implement leader election is through the use of a reliable key-value store, such as etcd. In this article, I'll explore how to implement a simple leader election implementation in Rust using an etcd server. ...
 </div>](kyber-dilithium.md)
 <div class="date-published">07 Feb 2025</div>
+
+---
+
+## [Building a Simple Functional Language Compiler](mini-lang.md)
+
+[<div class="abstract">
+A simple compiler for a toy functional language written in Rust, supporting functions, conditionals, and arithmetic with 32-bit floats. It converts source code into WebAssembly Text (.wat) and binary (.wasm) using hand-written lexer, parser, AST, and code generator. This project explores compiler design, Rust programming, and WebAssembly generation in an educational setting...
+</div>](mini-lang.md)
+<div class="date-published">03 Apr 2022</div>
