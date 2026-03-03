@@ -168,7 +168,7 @@ A typical flow looks like:
 
 State can be inspected at any time via the HTTP state server.
 
-Currently the CBBA is implemented extremely simply. 
+Currently the CBBA is implemented very simply. 
 Every agent simply runs the entire CBBA process for 30 seconds and quits the CBBA phase.
 You can find the full implementation together with demos and Docker and docker-compose files [here](https://github.com/fade2black/agent-project).
 
