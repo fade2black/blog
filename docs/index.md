@@ -8,6 +8,14 @@ Find me on [LinkedIn](https://www.linkedin.com/in/bayramk/) and [Github](https:/
 
 # All Articles
 
+## [Minimal CBBA Prototype](cbba.md)
+
+[<div class="abstract">
+I’ve been exploring decentralized task allocation systems, 
+particularly the Consensus-Based Bundle Algorithm (CBBA), 
+as part of a broader interest in multi-agent coordination....
+</div>](cbba.md)
+<div class="date-published">04 Mar 2026</div>
 
 ## [Secure Communication with Kyber and Dilithium in Rust](kyber-dilithium.md)
 

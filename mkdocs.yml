@@ -34,6 +34,7 @@ theme:
 nav:
   - Home: index.md
   - Articles:
+      - Minimal CBBA Prototype: cbba.md
       - Kyber-Dilithium: kyber-dilithium.md
       - Distributed Cron: dcron.md
       - Leader Election: leader-election.md
