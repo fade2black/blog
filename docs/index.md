@@ -6,7 +6,7 @@ Find me on [LinkedIn](https://www.linkedin.com/in/bayramk/) and [Github](https:/
 
 ---
 
-# All Articles
+# Archive
 
 ## [Minimal CBBA Prototype](cbba.md)
 

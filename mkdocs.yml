@@ -1,4 +1,4 @@
-site_name: Articles
+site_name: Rusty Notes
 site_url: https://fade2black.github.io/blog/
 
 markdown_extensions:
@@ -33,7 +33,7 @@ theme:
 
 nav:
   - Home: index.md
-  - Articles:
+  - Notes:
       - Minimal CBBA Prototype: cbba.md
       - Kyber-Dilithium: kyber-dilithium.md
       - Distributed Cron: dcron.md
