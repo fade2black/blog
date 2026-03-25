@@ -19,6 +19,50 @@ The goal of this project is not to provide a production-ready CBBA implementatio
 inspectable system that demonstrates how such agents can be structured in practice,
 and later extended toward embedded system deployments.
 
+## Example
+Here is a simplified example with 3 agents to give a basic idea.
+
+Let’s assume we have 3 agents and 4 tasks, 
+where each agent has different costs for performing each task. 
+The goal is to assign the tasks to agents with minimal total cost.
+
+Assume we we have the following cost information:
+
+| Task | Agent 1 | Agent 2 | Agent 3 |
+| ---- | ------- | ------- | ------- |
+| 1    | 3       | 1       | 2       |
+| 2    | 4       | 3       | 1       |
+| 3    | 6       | 5       | 4       |
+| 4    | 2       | 7       | 3       |
+
+Then the simplified version of the algorithm works like the following:
+
+### Initialization
+Each agent starts by considering all tasks it can perform and calculates the cost for each task.
+
+- Agent 1: 
+    - `Bundle =  [T1, T2, T3, T4]`
+    - `Winners = [T1:(A1,3), T2:(A1,4), T3:(A1,6), T4:(A1,2)]`,
+- Agent 2: 
+    - `Bundle =  [T1, T2, T3, T4]`
+    - `Winners = [T1:(A2,1), T2:(A2,3), T3:(A2,5), T4:(A2,7)]`,
+- Agent 3: 
+    - `Bundle =  [T1, T2, T3, T4]`
+    - `Winners = [T1:(A3,2), T2:(A3,1), T3:(A3,4), T4:(A3,3)]`,
+
+### Step 1
+
+Assume Agent 1 broadcasts its winners list and
+Agent 2 and Agent 3 recieve the gossip (the winners list).
+They resolve conflicts (lower cost wins) and update their bundle and winners list.
+
+- Agent 1: `B = [T1, T2, T3, T4], W = [T1:(A1,3), T2:(A1,4), T3:(A1,6), T4:(A1,2)]`
+- Agent 2: `B = [T1, T2, T3], W = [T1:(A2,1), T2:(A2,3), T3:(A2,5), T4:(A1,7)]`
+- Agent 3: `B = [T1, T2, T3], W = [T1:(A3,2), T2:(A3,1), T3:(A3,4), T4:(A1,2)]` 
+
+So, Agent 2 and Agent 3 drop the Task 4 and update their winners accordingly.
+This process continues until all agents agree upon a common list of winners.
+
 ## Agent State Model
 
 Each agent maintains several internal stores that together represent its view of the world.
