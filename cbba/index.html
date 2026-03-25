@@ -327,6 +327,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initialization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#agent-state-model" class="md-nav__link">
     <span class="md-ellipsis">
       Agent State Model
@@ -599,6 +632,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initialization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#agent-state-model" class="md-nav__link">
     <span class="md-ellipsis">
       Agent State Model
@@ -761,6 +827,79 @@ I wanted to build a small working prototype that exercises the mechanics of:</p>
 <p>The goal of this project is not to provide a production-ready CBBA implementation, but to create a minimal, 
 inspectable system that demonstrates how such agents can be structured in practice,
 and later extended toward embedded system deployments.</p>
+<h2 id="example">Example</h2>
+<p>Here is a simplified example with 3 agents to give a basic idea.</p>
+<p>Let’s assume we have 3 agents and 4 tasks, 
+where each agent has different costs for performing each task. 
+The goal is to assign the tasks to agents with minimal total cost.</p>
+<p>Assume we we have the following cost information:</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Agent 1</th>
+<th>Agent 2</th>
+<th>Agent 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>3</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>7</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>Then the simplified version of the algorithm works like the following:</p>
+<h3 id="initialization">Initialization</h3>
+<p>Each agent starts by considering all tasks it can perform and calculates the cost for each task.</p>
+<ul>
+<li>Agent 1: <ul>
+<li><code>Bundle =  [T1, T2, T3, T4]</code></li>
+<li><code>Winners = [T1:(A1,3), T2:(A1,4), T3:(A1,6), T4:(A1,2)]</code>,</li>
+</ul>
+</li>
+<li>Agent 2: <ul>
+<li><code>Bundle =  [T1, T2, T3, T4]</code></li>
+<li><code>Winners = [T1:(A2,1), T2:(A2,3), T3:(A2,5), T4:(A2,7)]</code>,</li>
+</ul>
+</li>
+<li>Agent 3: <ul>
+<li><code>Bundle =  [T1, T2, T3, T4]</code></li>
+<li><code>Winners = [T1:(A3,2), T2:(A3,1), T3:(A3,4), T4:(A3,3)]</code>,</li>
+</ul>
+</li>
+</ul>
+<h3 id="step-1">Step 1</h3>
+<p>Assume Agent 1 broadcasts its winners list and
+Agent 2 and Agent 3 recieve the gossip (the winners list).
+They resolve conflicts (lower cost wins) and update their bundle and winners list.</p>
+<ul>
+<li>Agent 1: <code>B = [T1, T2, T3, T4], W = [T1:(A1,3), T2:(A1,4), T3:(A1,6), T4:(A1,2)]</code></li>
+<li>Agent 2: <code>B = [T1, T2, T3], W = [T1:(A2,1), T2:(A2,3), T3:(A2,5), T4:(A1,7)]</code></li>
+<li>Agent 3: <code>B = [T1, T2, T3], W = [T1:(A3,2), T2:(A3,1), T3:(A3,4), T4:(A1,2)]</code> </li>
+</ul>
+<p>So, Agent 2 and Agent 3 drop the Task 4 and update their winners accordingly.
+This process continues until all agents agree upon a common list of winners.</p>
 <h2 id="agent-state-model">Agent State Model</h2>
 <p>Each agent maintains several internal stores that together represent its view of the world.</p>
 <h3 id="agent-store">Agent Store</h3>
