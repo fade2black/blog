@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://fade2black.github.io/blog/cbba/">
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../kalman1d/">
       
       
         <link rel="next" href="../kyber-dilithium/">
@@ -260,6 +260,29 @@
             Notes
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kalman1d/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    A Gentle Introduction to Kalman Filters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -973,12 +996,12 @@ The current implementation has the following states:</p>
 <li>Running CBBA</li>
 <li>RunningDistTasks</li>
 </ul>
-<div class="language-rust highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">pub</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">ControlState</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">Idle</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">RunningCBBA</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">RunningDistTasks</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
-</span></code></pre></div>
+<pre><code class="language-rust">pub enum ControlState {
+    Idle,
+    RunningCBBA,
+    RunningDistTasks,
+}
+</code></pre>
 <p>If a command conflicts with the current state, the transition is rejected and an error is returned.</p>
 <p>This prevents invalid flows such as:</p>
 <ul>
@@ -1080,6 +1103,10 @@ I am also planning to read about the convergence time (<em>Consensus-Based Decen
     
     
       <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

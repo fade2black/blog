@@ -262,6 +262,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../kalman1d/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    A Gentle Introduction to Kalman Filters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cbba/" class="md-nav__link">
         
   
@@ -754,11 +777,11 @@
 </table>
 <hr />
 <h2 id="example-1-nn">Example 1 (<code>NN</code>)</h2>
-<p>Given the handshake pattern:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>-&gt; e
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>&lt;- e, ee
-</span></code></pre></div>
-Here’s what happens</p>
+<p>Given the handshake pattern:</p>
+<pre><code>-&gt; e
+&lt;- e, ee
+</code></pre>
+<p>Here’s what happens</p>
 <p><code>-&gt; e</code></p>
 <ol>
 <li>Initiator generates an ephemeral keypair <code>(e_i.private, e_i.public)</code>.</li>
@@ -772,10 +795,10 @@ Here’s what happens</p>
 <li>Responder sends <code>[e_r.public]</code></li>
 </ol>
 <h3 id="example-2-xx">Example 2 (<code>XX</code>)</h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>-&gt; e
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>&lt;- e, ee, s, es
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>-&gt; s, se
-</span></code></pre></div>
+<pre><code>-&gt; e
+&lt;- e, ee, s, es
+-&gt; s, se
+</code></pre>
 <p><code>-&gt; e</code></p>
 <ol>
 <li>The initiator generates an ephemeral keypair <code>(e_i.prv, e_i.pub)</code>.</li>
@@ -810,8 +833,8 @@ Here’s what happens</p>
 <li><strong><code>s</code> (Static Key)</strong>: The initiator also <strong>sends</strong> its <strong>static public key</strong> (<code>s_i.public</code>).</li>
 </ul>
 <p><strong>Message 1</strong> sent by the initiator:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Message 1 -&gt; [e_i.public | s_i.public]
-</span></code></pre></div>
+<pre><code>Message 1 -&gt; [e_i.public | s_i.public]
+</code></pre>
 <ul>
 <li><strong>Purpose of <code>e</code></strong>: This ensures <strong>forward secrecy</strong>. The ephemeral key (<code>e_i</code>) will only be used for this session. If the initiator's static key (<code>s_i</code>) gets compromised in the future, this session is still secure due to the ephemeral key.</li>
 <li><strong>Purpose of <code>s</code></strong>: The static key (<code>s_i</code>) is sent to the responder for <strong>authentication</strong>, so the responder can verify who the initiator is.</li>
@@ -825,8 +848,8 @@ Here’s what happens</p>
 <li><strong><code>es</code> (Ephemeral-Static DH)</strong>: The responder performs a <strong>Diffie-Hellman</strong> operation between their <strong>ephemeral private key (<code>e_r</code>)</strong> and the <strong>initiator’s static public key (<code>s_i.public</code>)</strong>. This provides additional mixing of the shared secret into the state (<code>ck</code>).</li>
 </ul>
 <p><strong>Message 2</strong> sent by the responder:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Message 2 &lt;- [e_r.public | encrypted(s_r.public) | e_r, s_r]
-</span></code></pre></div>
+<pre><code>Message 2 &lt;- [e_r.public | encrypted(s_r.public) | e_r, s_r]
+</code></pre>
 <ul>
 <li><strong>Purpose of <code>ee</code></strong>: The <strong>ephemeral-ephemeral DH</strong> step ensures the responder contributes to the shared secret.</li>
 <li><strong>Purpose of <code>s</code></strong>: The <strong>static public key</strong> allows the initiator to authenticate the responder.</li>
@@ -839,8 +862,8 @@ Here’s what happens</p>
 <li><strong><code>se</code> (Static-Ephemeral DH)</strong>: The initiator performs <strong>Diffie-Hellman</strong> between their <strong>static private key</strong> (<code>s_i.private</code>) and the responder's <strong>ephemeral public key</strong> (<code>e_r.public</code>). This creates a shared secret that is mixed into the handshake state (<code>ck</code>).</li>
 </ul>
 <p><strong>Message 3</strong> sent by the initiator:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Message 3 -&gt; [encrypted(s_i.public) | e_r.public]
-</span></code></pre></div>
+<pre><code>Message 3 -&gt; [encrypted(s_i.public) | e_r.public]
+</code></pre>
 <ul>
 <li><strong>Purpose of <code>se</code></strong>: This <strong>static-ephemeral DH</strong> operation provides another layer of authentication and key exchange, ensuring both sides can verify each other's identity and derive the final shared secret.</li>
 </ul>
@@ -947,6 +970,10 @@ Here’s what happens</p>
     
     
       <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

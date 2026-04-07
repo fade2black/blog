@@ -266,6 +266,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../kalman1d/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    A Gentle Introduction to Kalman Filters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cbba/" class="md-nav__link">
         
   
@@ -707,27 +730,27 @@
 <li><strong>Comments</strong>: lines starting with symbol "#"</li>
 <li><strong>Types</strong>: all 32-bit floats</li>
 </ul>
-<p>Example 1: computing the sum of the first n integers.
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># Sum of first `n` integers
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>def sum(x) 
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a> if x == 1 
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>   then 1
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>   else sum(x-1) + x;
-</span></code></pre></div></p>
-<p>Example 2: Solving a quadratic equation
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># Solution of a second
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># order equation with coeffients a,b,c
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>def root1(a b c)
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  if discr(a, b, c) &lt; 0
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  then 0 
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  else (-b + sqrt(discr(a, b, c)))/(2*a);
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>def root2(a b c)
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  if discr(a, b, c) &lt; 0
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  then 0 
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>  else (-b - sqrt(discr(a, b, c)))/(2*a);
-</span></code></pre></div></p>
+<p>Example 1: computing the sum of the first n integers.</p>
+<pre><code># Sum of first `n` integers
+def sum(x) 
+ if x == 1 
+   then 1
+   else sum(x-1) + x;
+</code></pre>
+<p>Example 2: Solving a quadratic equation</p>
+<pre><code># Solution of a second
+# order equation with coeffients a,b,c
+
+def root1(a b c)
+  if discr(a, b, c) &lt; 0
+  then 0 
+  else (-b + sqrt(discr(a, b, c)))/(2*a);
+
+def root2(a b c)
+  if discr(a, b, c) &lt; 0
+  then 0 
+  else (-b - sqrt(discr(a, b, c)))/(2*a);
+</code></pre>
 <h2 id="formal-definition">Formal Definition</h2>
 <ul>
 <li><strong>Keywords</strong>: <code>def</code>, <code>if</code>, <code>then</code>, <code>else</code></li>
@@ -736,29 +759,29 @@
 <li><strong>Expressions</strong>: arithmetic operations, comparisons, function calls, and conditional expressions</li>
 </ul>
 <p>The Context Free Grammar (CFG) for the language is defined as follows:</p>
-<p><div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Program ::= def Prototype Expression ; | def Prototype Expression ; Program
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Prototype ::= Identifier(Params) | Identifier()
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Params ::= Identifier Params | Identifier
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>Expression ::= Exp | IfExp
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>Exp ::= SubExp | Exp &lt; SubExp | Exp &gt; SubExp | Exp &lt;&gt; SubExp | Exp == SubExp
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>SubExp ::= Term | SubExp + Term | SubExp - Term | SubExp | Term
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>Term ::= Factor | Term * Factor | Term / Factor | Term &amp; Factor
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>Factor ::= -Exp | ( Exp ) | Identifier | Number | FuncionCall
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>FuncionCall ::= Identifier(Args) | Identifier()
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>Args ::= Exp | Comma Args
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>IfExp ::= if Exp then Exp else Exp
-</span></code></pre></div>
-The compiler follows a straightforward pipeline: 
+<pre><code>Program ::= def Prototype Expression ; | def Prototype Expression ; Program
+
+Prototype ::= Identifier(Params) | Identifier()
+
+Params ::= Identifier Params | Identifier
+
+Expression ::= Exp | IfExp
+
+Exp ::= SubExp | Exp &lt; SubExp | Exp &gt; SubExp | Exp &lt;&gt; SubExp | Exp == SubExp
+
+SubExp ::= Term | SubExp + Term | SubExp - Term | SubExp | Term
+
+Term ::= Factor | Term * Factor | Term / Factor | Term &amp; Factor
+
+Factor ::= -Exp | ( Exp ) | Identifier | Number | FuncionCall
+
+FuncionCall ::= Identifier(Args) | Identifier()
+
+Args ::= Exp | Comma Args
+
+IfExp ::= if Exp then Exp else Exp
+</code></pre>
+<p>The compiler follows a straightforward pipeline: 
 the lexer tokenizes the input, the parser builds an AST, and the code generator emits WebAssembly code.</p>
 <h2 id="implementation">Implementation</h2>
 <h3 id="lexer-aka-scanner">Lexer (a.k.a. Scanner)</h3>
@@ -877,91 +900,91 @@ making it easy to explore individual modules independently.</p>
 are wired together and how the compiler is actually executed. 
 That logic lives in <code>main.rs</code>.</p>
 <h2 id="putting-everything-together-mainrs">Putting Everything Together (<code>main.rs</code>)</h2>
-<div class="language-rust highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">use</span><span class="w"> </span><span class="n">minilang</span><span class="p">::</span><span class="n">code_generator</span><span class="p">::</span><span class="n">CodeGenerator</span><span class="p">;</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">use</span><span class="w"> </span><span class="n">minilang</span><span class="p">::</span><span class="n">parser</span><span class="p">::</span><span class="n">Parser</span><span class="p">;</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">process</span><span class="p">::</span><span class="n">Command</span><span class="p">;</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">env</span><span class="p">;</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">fs</span><span class="p">::</span><span class="n">File</span><span class="p">;</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">std</span><span class="p">::</span><span class="n">io</span><span class="p">::</span><span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">args</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">env</span><span class="p">::</span><span class="n">args</span><span class="p">().</span><span class="n">collect</span><span class="p">();</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">args</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Not enough arguments. Please specify input and output files names.&quot;</span><span class="p">);</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">Ok</span><span class="p">(());</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">File</span><span class="p">::</span><span class="n">open</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">as_str</span><span class="p">())</span><span class="o">?</span><span class="p">;</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">File</span><span class="p">::</span><span class="n">create</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">as_str</span><span class="p">())</span><span class="o">?</span><span class="p">;</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">parser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Parser</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">src</span><span class="p">);</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="n">parser</span><span class="p">.</span><span class="n">main_loop</span><span class="p">();</span>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">err_logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parser</span><span class="p">.</span><span class="n">get_error_logger</span><span class="p">();</span>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">err_logger</span><span class="p">.</span><span class="n">has_errors</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">err_logger</span><span class="p">.</span><span class="n">iter</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">            </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;SYNTAX ERROR: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">);</span>
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">        </span><span class="p">}</span>
-</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">        </span><span class="c1">// Generate WebAssembly text</span>
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">        </span><span class="n">CodeGenerator</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">parser</span><span class="p">.</span><span class="n">get_asts</span><span class="p">(),</span><span class="w"> </span><span class="n">target</span><span class="p">).</span><span class="n">run</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>
-</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">        </span><span class="c1">// Generate binary WebAssembly</span>
-</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="w">        </span><span class="n">Command</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">&quot;sh&quot;</span><span class="p">)</span>
-</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="w">            </span><span class="p">.</span><span class="n">arg</span><span class="p">(</span><span class="s">&quot;-c&quot;</span><span class="p">)</span>
-</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="w">            </span><span class="p">.</span><span class="n">arg</span><span class="p">(</span><span class="fm">format!</span><span class="p">(</span><span class="s">&quot;wat2wasm {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">as_str</span><span class="p">()))</span>
-</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a><span class="w">            </span><span class="p">.</span><span class="n">output</span><span class="p">()</span>
-</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a><span class="w">            </span><span class="p">.</span><span class="n">expect</span><span class="p">(</span><span class="s">&quot;failed to execute &#39;wat2wasm&#39;&quot;</span><span class="p">);</span>
-</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>
-</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span>
-</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="p">}</span>
-</span></code></pre></div>
+<pre><code class="language-rust">use minilang::code_generator::CodeGenerator;
+use minilang::parser::Parser;
+use std::process::Command;
+
+use std::env;
+use std::fs::File;
+
+fn main() -&gt; std::io::Result&lt;()&gt; {
+    let args: Vec&lt;String&gt; = env::args().collect();
+    if args.len() &lt; 3 {
+        println!(&quot;Not enough arguments. Please specify input and output files names.&quot;);
+        return Ok(());
+    }
+
+    let src = File::open(args[1].as_str())?;
+    let target = File::create(args[2].as_str())?;
+
+    let mut parser = Parser::new(src);
+    parser.main_loop();
+
+    let err_logger = parser.get_error_logger();
+
+    if err_logger.has_errors() {
+        for error in err_logger.iter() {
+            println!(&quot;SYNTAX ERROR: {}&quot;, error);
+        }
+    } else {
+        // Generate WebAssembly text
+        CodeGenerator::new(parser.get_asts(), target).run()?;
+        // Generate binary WebAssembly
+        Command::new(&quot;sh&quot;)
+            .arg(&quot;-c&quot;)
+            .arg(format!(&quot;wat2wasm {}&quot;, args[2].as_str()))
+            .output()
+            .expect(&quot;failed to execute 'wat2wasm'&quot;);
+    }
+
+    Ok(())
+}
+</code></pre>
 <p>If <code>wat2wasm</code> is not available, you can install it using <code>brew install wabt</code>.</p>
 <p>Create a file named <code>fib.txt</code> with the following content:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a># Computes Fibbonaci sequence
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>def fib(x)
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  if (x == 1) | (x == 2)
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    then 1
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    else fib(x-1) + fib(x-2);
-</span></code></pre></div>
-<p>and the run
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>cargo<span class="w"> </span>run<span class="w"> </span>fib.txt<span class="w"> </span>target.wat
-</span></code></pre></div>
-It'll generate two files, <code>target.wat</code> and <code>target.wasm</code>.
+<pre><code># Computes Fibbonaci sequence
+def fib(x)
+  if (x == 1) | (x == 2)
+    then 1
+    else fib(x-1) + fib(x-2);
+</code></pre>
+<p>and the run</p>
+<pre><code class="language-bash">cargo run fib.txt target.wat
+</code></pre>
+<p>It'll generate two files, <code>target.wat</code> and <code>target.wasm</code>.
 Next create a javascript file <code>fib.js</code></p>
-<div class="language-JavaScript highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">readFileSync</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">run</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">readFileSync</span><span class="p">(</span><span class="s2">&quot;./target.wasm&quot;</span><span class="p">);</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">compile</span><span class="p">(</span><span class="nx">buffer</span><span class="p">);</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiate</span><span class="p">(</span><span class="nx">module</span><span class="p">);</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">fib</span><span class="p">(</span><span class="mf">5</span><span class="p">));</span><span class="w"> </span><span class="c1">// Call fibbonaci function</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p">};</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="nx">run</span><span class="p">();</span>
-</span></code></pre></div>
+<pre><code class="language-JavaScript">const { readFileSync } = require(&quot;fs&quot;);
+
+const run = async () =&gt; {
+  const buffer = readFileSync(&quot;./target.wasm&quot;);
+  const module = await WebAssembly.compile(buffer);
+  const instance = await WebAssembly.instantiate(module);
+  console.log(instance.exports.fib(5)); // Call fibbonaci function
+};
+
+run();
+</code></pre>
 <p>and run it</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>node<span class="w"> </span>fib.js
-</span></code></pre></div>
+<pre><code class="language-bash">node fib.js
+</code></pre>
 <p>The following example computes roots of a quadratic equation (assuming they are different from 0).</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a># Computes factorial sequence
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a># Solution of a second
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a># order equation with coeffients a,b,c
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>def discr(a b c)
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  b*b - 4*a*c;
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>def root1(a b c)
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>  if discr(a, b, c) &lt; 0
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>  then 0
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>  else (-b + sqrt(discr(a, b, c)))/(2*a);
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>def root2(a b c)
-</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>  if discr(a, b, c) &lt; 0
-</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>  then 0
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>  else (-b - sqrt(discr(a, b, c)))/(2*a);
-</span></code></pre></div>
+<pre><code># Computes factorial sequence
+# Solution of a second
+# order equation with coeffients a,b,c
+
+def discr(a b c)
+  b*b - 4*a*c;
+
+def root1(a b c)
+  if discr(a, b, c) &lt; 0
+  then 0
+  else (-b + sqrt(discr(a, b, c)))/(2*a);
+
+def root2(a b c)
+  if discr(a, b, c) &lt; 0
+  then 0
+  else (-b - sqrt(discr(a, b, c)))/(2*a);
+</code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>This project was an exercise in building a compiler from first principles, deliberately avoiding frameworks 
 or generator tools in favor of handwritten components.
@@ -1021,6 +1044,10 @@ The full source code is available on <a href="https://github.com/fade2black/mini
     
     
       <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

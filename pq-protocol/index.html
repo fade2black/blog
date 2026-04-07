@@ -262,6 +262,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../kalman1d/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    A Gentle Introduction to Kalman Filters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cbba/" class="md-nav__link">
         
   
@@ -611,10 +634,11 @@
 <h2 id="3-handshake-overview">3. Handshake Overview</h2>
 <p><strong>Goal:</strong> derive a shared session key <code>K</code> between client and server.</p>
 <p><strong>Flow (2.5 round trips)</strong></p>
-<pre class="mermaid"><code>  sequenceDiagram
+<pre><code class="language-mermaid">  sequenceDiagram
     Client--&gt;&gt;Server: ClientHello
     Server--&gt;&gt;Client: ServerHello
-    Client--&gt;&gt;Server: ClientKEM</code></pre>
+    Client--&gt;&gt;Server: ClientKEM
+</code></pre>
 <h3 id="31-clienthello">3.1 ClientHello</h3>
 <table>
 <thead>
@@ -642,12 +666,12 @@
 </tr>
 </tbody>
 </table>
-<p>Rust struct:
-<div class="language-rust highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">pub</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">ClientHello</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">client_id</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">u8</span><span class="o">&gt;</span><span class="p">,</span><span class="w">       </span><span class="c1">// max 255 bytes</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">client_nonce</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="kt">u8</span><span class="p">;</span><span class="w"> </span><span class="mi">32</span><span class="p">],</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">}</span>
-</span></code></pre></div></p>
+<p>Rust struct:</p>
+<pre><code class="language-rust">pub struct ClientHello {
+    pub client_id: Vec&lt;u8&gt;,       // max 255 bytes
+    pub client_nonce: [u8; 32],
+}
+</code></pre>
 <h3 id="32-serverhello">3.2 ServerHello</h3>
 <table>
 <thead>
@@ -686,8 +710,8 @@
 </tbody>
 </table>
 <p>The server computes</p>
-<div class="language-rust highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">sig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sign</span><span class="p">(</span><span class="n">sk_dil</span><span class="p">,</span><span class="w"> </span><span class="n">pk_kyber</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">client_nonce</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">server_nonce</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">server_id</span><span class="p">)</span>
-</span></code></pre></div>
+<pre><code class="language-rust">sig = Sign(sk_dil, pk_kyber || client_nonce || server_nonce || server_id)
+</code></pre>
 <h3 id="33-clientkem">3.3 ClientKEM</h3>
 <table>
 <thead>
@@ -709,10 +733,12 @@
 <ul>
 <li>Maintain a running SHA-256 hash of all handshake messages (in serialized order).</li>
 <li>Server signs <code>pk_kyber || client_nonce || server_nonce || server_id</code> to bind its ephemeral key to the session.</li>
-<li>After ClientKEM, both sides compute:
-<div class="language-rust highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">transcript_hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SHA256</span><span class="p">(</span><span class="n">ClientHello</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">ServerHello</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">ClientKEM</span><span class="p">)</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">session_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HKDF</span><span class="o">-</span><span class="n">Expand</span><span class="p">(</span><span class="n">ss</span><span class="p">,</span><span class="w"> </span><span class="n">transcript_hash</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s">&quot;Kyber-Dilithium-AKE&quot;</span><span class="p">)</span>
-</span></code></pre></div></li>
+<li>After ClientKEM, both sides compute:</li>
+</ul>
+<pre><code class="language-rust">transcript_hash = SHA256(ClientHello || ServerHello || ClientKEM)
+session_key = HKDF-Expand(ss, transcript_hash || &quot;Kyber-Dilithium-AKE&quot;)
+</code></pre>
+<ul>
 <li>Server zeroizes sk_kyber after decapsulation.</li>
 </ul>
 <h2 id="5-encoding-rules">5. Encoding Rules</h2>
@@ -815,13 +841,14 @@
 </tr>
 </tbody>
 </table>
-<pre class="mermaid"><code>stateDiagram-v2
+<pre><code class="language-mermaid">stateDiagram-v2
     [*] --&gt; Init
     Init --&gt; SentClientHello: send_client_hello()
     SentClientHello --&gt; ReceivedServerHello: receive_server_hello() + verify
     ReceivedServerHello --&gt; SentKemCiphertext: send_client_kem()
     SentKemCiphertext --&gt; Complete: finalize()
-    [*] --&gt; Failed: error</code></pre>
+    [*] --&gt; Failed: error
+</code></pre>
 <h3 id="server-fsm">Server FSM</h3>
 <table>
 <thead>
@@ -854,14 +881,15 @@
 </tr>
 </tbody>
 </table>
-<pre class="mermaid"><code>stateDiagram-v2
+<pre><code class="language-mermaid">stateDiagram-v2
     [*] --&gt; Init
     Init --&gt; ReceivedClientHello : receive_client_hello()
     ReceivedClientHello --&gt; SentServerHello : send_server_hello()
     SentServerHello --&gt; Complete : receive_client_kem_ciphertext()
-    [*] --&gt; Failed : error</code></pre>
+    [*] --&gt; Failed : error
+</code></pre>
 <h2 id="handshake-interaction">Handshake Interaction</h2>
-<pre class="mermaid"><code>sequenceDiagram
+<pre><code class="language-mermaid">sequenceDiagram
     autonumber
     participant Client
     participant Server
@@ -885,7 +913,8 @@
 
     Note over Client,Server: Handshake Complete
     Client-&gt;&gt;Client: finalize() + derive shared secret
-    Server-&gt;&gt;Server: handshake complete, session keys established</code></pre>
+    Server-&gt;&gt;Server: handshake complete, session keys established
+</code></pre>
 <h2 id="9-status">9. Status</h2>
 <p>Roles:</p>
 <ul>
@@ -956,6 +985,10 @@
     
     
       <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

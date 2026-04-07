@@ -2,34 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://fade2black.github.io/blog/</loc>
-         <lastmod>2026-03-25</lastmod>
+         <lastmod>2026-04-07</lastmod>
     </url>
     <url>
          <loc>https://fade2black.github.io/blog/cbba/</loc>
-         <lastmod>2026-03-25</lastmod>
+         <lastmod>2026-04-07</lastmod>
     </url>
     <url>
          <loc>https://fade2black.github.io/blog/dcron/</loc>
-         <lastmod>2026-03-25</lastmod>
+         <lastmod>2026-04-07</lastmod>
+    </url>
+    <url>
+         <loc>https://fade2black.github.io/blog/kalman1d/</loc>
+         <lastmod>2026-04-07</lastmod>
     </url>
     <url>
          <loc>https://fade2black.github.io/blog/kyber-dilithium/</loc>
-         <lastmod>2026-03-25</lastmod>
+         <lastmod>2026-04-07</lastmod>
     </url>
     <url>
          <loc>https://fade2black.github.io/blog/leader-election/</loc>
-         <lastmod>2026-03-25</lastmod>
+         <lastmod>2026-04-07</lastmod>
     </url>
     <url>
          <loc>https://fade2black.github.io/blog/mini-lang/</loc>
-         <lastmod>2026-03-25</lastmod>
+         <lastmod>2026-04-07</lastmod>
     </url>
     <url>
          <loc>https://fade2black.github.io/blog/noise-protocol/</loc>
-         <lastmod>2026-03-25</lastmod>
+         <lastmod>2026-04-07</lastmod>
     </url>
     <url>
          <loc>https://fade2black.github.io/blog/pq-protocol/</loc>
-         <lastmod>2026-03-25</lastmod>
+         <lastmod>2026-04-07</lastmod>
     </url>
 </urlset>
