@@ -8,6 +8,14 @@ Find me on [LinkedIn](https://www.linkedin.com/in/bayramk/) and [Github](https:/
 
 # Archive
 
+## [Tracking a Moving Body with a 1D Kalman Filter](kalman1d.md)
+[<div class="abstract">
+I’ve been playing around with state estimation lately, 
+specifically how to track an object moving at a constant velocity `v` using only a noisy sensor (like a basic GPS). To get a clean estimate of the position...
+</div>](kalman1d.md)
+<div class="date-published">12 Apr 2026</div>
+
+
 ## [Minimal CBBA Prototype](cbba.md)
 
 [<div class="abstract">
