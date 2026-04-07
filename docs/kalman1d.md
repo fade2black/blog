@@ -84,10 +84,6 @@ $$\sigma^2_k = \sigma^2_{k-1} + Q$$
 By the end of the prediction step, we have an "a priori" estimate 
 or in simple words "our best guess before we have seen the latest sensor data."
 
-It's worth to note that $Q$ is what keeps the filter from becoming "too confident". 
-Without adding $Q$, the filter would eventually stop listening to the sensor entirely (just set to $0$ and see the result).
-
-
 ## The Measurement Update (Correction)
 
 Now that we have our physics based prediction, it is time to take into account real measurement.
