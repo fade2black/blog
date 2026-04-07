@@ -513,8 +513,6 @@ In our 1D constant-velocity model it is very simple</p>
 <div class="arithmatex">\[\sigma^2_k = \sigma^2_{k-1} + Q\]</div>
 <p>By the end of the prediction step, we have an "a priori" estimate 
 or in simple words "our best guess before we have seen the latest sensor data."</p>
-<p>It's worth to note that <span class="arithmatex">\(Q\)</span> is what keeps the filter from becoming "too confident". 
-Without adding <span class="arithmatex">\(Q\)</span>, the filter would eventually stop listening to the sensor entirely (just set to <span class="arithmatex">\(0\)</span> and see the result).</p>
 <h2 id="the-measurement-update-correction">The Measurement Update (Correction)</h2>
 <p>Now that we have our physics based prediction, it is time to take into account real measurement.</p>
 <p>The purpose of the Measurement Update is to take the actual sensor reading and use it to refine our prediction. This step is where the "filtering" actually happens through three quick calculations:</p>
