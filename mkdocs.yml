@@ -41,7 +41,8 @@ theme:
 nav:
   - Home: index.md
   - Notes:
-      - A Gentle Introduction to Kalman Filters: kalman1d.md
+      - A Gentle Introduction to Kalman Filters (Part 2): kalman2d.md
+      - A Gentle Introduction to Kalman Filters (Part 1): kalman1d.md
       - Minimal CBBA Prototype: cbba.md
       - Kyber-Dilithium: kyber-dilithium.md
       - Distributed Cron: dcron.md

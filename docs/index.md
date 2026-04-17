@@ -7,8 +7,13 @@ Find me on [LinkedIn](https://www.linkedin.com/in/bayramk/) and [Github](https:/
 ---
 
 # Archive
+## [A Gentle Introduction to Kalman Filters (Part 2)](kalman2d.md)
+[<div class="abstract">
+Blah blah bla.....
+</div>](kalman2d.md)
+<div class="date-published">07 Apr 2026</div>
 
-## [A Gentle Introduction to Kalman Filters](kalman1d.md)
+## [A Gentle Introduction to Kalman Filters (Part 1)](kalman1d.md)
 [<div class="abstract">
 I’ve been playing around with state estimation lately, 
 specifically how to track an object moving at a constant velocity $v$ using only a noisy sensor (like a basic GPS). To get a clean estimate of the position...

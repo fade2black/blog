@@ -105,7 +105,7 @@ $$ \sigma^2_{new} = (1 - K) \cdot \sigma^2$$
 By the end of this step, we have an "a posteriori" estimate. 
 In other words, our final, polished answer for this time step. 
 The filter then loops back to TIme Updatep 1 and starts the whole
- process over again for the next $dt$.
+process over again for the next $dt$.
 
 # Rust Implementation
 
