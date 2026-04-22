@@ -1,4 +1,4 @@
-<div class="meta-data">20 apr 2026 </div>
+<div class="meta-data">22 apr 2026 </div>
 
 # A Gentle Introduction to Kalman Filters (2D Kalman Filter )
 
@@ -17,6 +17,9 @@ Our goal is to use the relationship between these two variables to achieve two t
 
 1. Filter the noise out of our position measurements.
 2. Infer the velocity, even though we never actually measure it.
+
+In the next section I try to explain how the equations are derived, though not fully.
+If you are not interested in math heavy part then you can directly jump to "Putting It All Together" section. 
 
 ## Filter Equations
 
@@ -298,15 +301,18 @@ fn build_process_noise_matrix(dt: f64, var_a: f64) -> KMatrix {
 
 ## Simulation
 
-Consider a target moving along a straight path at an altitude of 750 meters. 
-Assume that our rocket has sensors that receive the target's $x$-coordinate with a variance of 100, 
+Consider a target moving along a horizontal straight path at distance of 750 meters. 
+Assume that another object has sensors that receive the target's $x$-coordinate with a variance of 100, 
 meaning the error deviates by ±10 meters. The target's initiali $x$ (location) is 10.
 For simplicity, let’s assume the scenario takes place in a 2D $xy$ plane. 
-I wrote a simulation of the rocket "chasing" the target with the following parameters:"
+I wrote (in C++) a simulation of the object "chasing" the target with the following parameters:"
 
 - $\sigma_a = 0.0015$
 - $\sigma_z = 100$
 - $\Delta t = 0.05$
+
+For simplicity I have used the Pure Pursuit Method where I always point directly at where the target is right now. 
+For moving targets, this results in a curved "tail-chase" path. The Proportional Navigation is next time.😉
 
 <video width="640" height="360" controls>
   <source src="../videos/sim1.mov">

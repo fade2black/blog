@@ -9,9 +9,9 @@ Find me on [LinkedIn](https://www.linkedin.com/in/bayramk/) and [Github](https:/
 # Archive
 ## [A Gentle Introduction to Kalman Filters (Part 2)](kalman2d.md)
 [<div class="abstract">
-Blah blah bla.....
+In my previous post, we explored the foundational intuition behind the Kalman Filter using a **univariate** (single-state) approach. I showed how the filter balances a noisy measurement...
 </div>](kalman2d.md)
-<div class="date-published">07 Apr 2026</div>
+<div class="date-published">22 Apr 2026</div>
 
 ## [A Gentle Introduction to Kalman Filters (Part 1)](kalman1d.md)
 [<div class="abstract">
