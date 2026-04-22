@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://fade2black.github.io/blog/kalman1d/">
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../kalman2d/">
       
       
         <link rel="next" href="../cbba/">
@@ -22,7 +22,7 @@
     
     
       
-        <title>A Gentle Introduction to Kalman Filters - Rusty Notes</title>
+        <title>A Gentle Introduction to Kalman Filters (Part 1) - Rusty Notes</title>
       
     
     
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              A Gentle Introduction to Kalman Filters
+              A Gentle Introduction to Kalman Filters (Part 1)
             
           </span>
         </div>
@@ -265,6 +265,29 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../kalman2d/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    A Gentle Introduction to Kalman Filters (Part 2)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -282,7 +305,7 @@
   
   
   <span class="md-ellipsis">
-    A Gentle Introduction to Kalman Filters
+    A Gentle Introduction to Kalman Filters (Part 1)
     
   </span>
   
@@ -525,7 +548,7 @@ or in simple words "our best guess before we have seen the latest sensor data."<
 <p>By the end of this step, we have an "a posteriori" estimate. 
 In other words, our final, polished answer for this time step. 
 The filter then loops back to TIme Updatep 1 and starts the whole
- process over again for the next <span class="arithmatex">\(dt\)</span>.</p>
+process over again for the next <span class="arithmatex">\(dt\)</span>.</p>
 <h1 id="rust-implementation">Rust Implementation</h1>
 <pre><code class="language-rust">pub struct State {
     pub mu: f64,

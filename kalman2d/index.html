@@ -1,0 +1,979 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fade2black.github.io/blog/kalman2d/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../kalman1d/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>A Gentle Introduction to Kalman Filters (Part 2) - Rusty Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#a-gentle-introduction-to-kalman-filters-2d-kalman-filter" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Rusty Notes" class="md-header__button md-logo" aria-label="Rusty Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Rusty Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              A Gentle Introduction to Kalman Filters (Part 2)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Rusty Notes" class="md-nav__button md-logo" aria-label="Rusty Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Rusty Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Notes
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    A Gentle Introduction to Kalman Filters (Part 2)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    A Gentle Introduction to Kalman Filters (Part 2)
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#moving-to-multiple-dimensions-position-and-velocity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Moving to Multiple Dimensions: Position and Velocity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Problem Statement
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filter-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filter Equations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Filter Equations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prediction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#putting-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Putting It All Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rust-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rust Implementation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simulation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kalman1d/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    A Gentle Introduction to Kalman Filters (Part 1)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cbba/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Minimal CBBA Prototype
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kyber-dilithium/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kyber-Dilithium
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dcron/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distributed Cron
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../leader-election/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Leader Election
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mini-lang/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functional Language Compiler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#moving-to-multiple-dimensions-position-and-velocity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Moving to Multiple Dimensions: Position and Velocity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Problem Statement
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filter-equations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filter Equations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Filter Equations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prediction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#putting-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Putting It All Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rust-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rust Implementation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simulation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div class="meta-data">22 apr 2026 </div>
+
+<h1 id="a-gentle-introduction-to-kalman-filters-2d-kalman-filter">A Gentle Introduction to Kalman Filters (2D Kalman Filter )</h1>
+<h2 id="moving-to-multiple-dimensions-position-and-velocity">Moving to Multiple Dimensions: Position and Velocity</h2>
+<p>In my <a href="https://fade2black.github.io/blog/kalman1d/">previous post</a>, we explored the foundational intuition behind the Kalman Filter using a <strong>univariate</strong> (single-state) approach. I showed how the filter balances a noisy measurement against a predicted state to find an optimal estimate. 1D example is great for grasping the core concepts of "prediction" and "update" operations.
+However, real-world systems are rarely that simple.</p>
+<p>In this post, instead of tracking a single value, I will track a <strong>multivariate</strong> state vector that describes a more realistic scenario: 1D motion where both position and velocity are linked.</p>
+<h2 id="the-problem-statement">The Problem Statement</h2>
+<p>Imagine we are tracking an object moving along a straight line. We have a sensor that provides us with <strong>position (<span class="arithmatex">\(x\)</span>)</strong>, but this sensor is noisy.
+We do not have a sensor for <strong>velocity (<span class="arithmatex">\(v_x\)</span>)</strong>, but we know that velocity directly influences where the object will be in the next time step.</p>
+<p>Our goal is to use the relationship between these two variables to achieve two things:</p>
+<ol>
+<li>Filter the noise out of our position measurements.</li>
+<li>Infer the velocity, even though we never actually measure it.</li>
+</ol>
+<p>In the next section I try to explain how the equations are derived, though not fully.
+If you are not interested in math heavy part then you can directly jump to "Putting It All Together" section. </p>
+<h2 id="filter-equations">Filter Equations</h2>
+<h3 id="prediction">Prediction</h3>
+<p>We start the prediction step.</p>
+<p>We treat our state variables as a Gaussian distribution.
+In the univariate case our state consists of a single variable <span class="arithmatex">\(x\)</span> and we iteratively update
+<span class="arithmatex">\(\mu_x\)</span> and <span class="arithmatex">\(\sigma_x^2\)</span>. </p>
+<p>But now the position and velocity are not treated as independent Gaussians - 
+the poistion depends on the velocity. 
+The Kalman filter models them as a joint Gaussian distribution,
+capturing both their individual uncertainties and their correlation. 
+So now our state is a vector</p>
+<div class="arithmatex">\[ \begin{bmatrix} x \\ v_x \end{bmatrix} \]</div>
+<p>and we iteratively predict and update the mean vector </p>
+<div class="arithmatex">\[ \begin{bmatrix} \mu_x \\ \mu_{v_x} \end{bmatrix} \]</div>
+<p>and the covariance matrix capturing both their individual uncertainties and their correlation</p>
+<div class="arithmatex">\[
+\begin{bmatrix} \sigma_x^2 &amp; \sigma_{x v_x} \\ \sigma_{v_x x} &amp; \sigma_{v_x}^2 \end{bmatrix}
+\]</div>
+<p>So, as a Kalman Filter designer our goal is to derive the predictition and update equations. </p>
+<p>We start with the basic kinemtic equations which look like</p>
+<div class="arithmatex">\[ x = x_0 + vdt + \frac{1}{2}adt^2 \]</div>
+<div class="arithmatex">\[ v_x = v_0 + adt \]</div>
+<p>As I mention in the previos post each step of the whole process consist of two operations: </p>
+<ol>
+<li>Predict: "a priori" estimate - our best guess before we have seen the latest sensor data, and</li>
+<li>Update: "a posteriori" estimate - improved guess after we have seen the latest sensor data.</li>
+</ol>
+<p>Let's discretize the time. Assume each time step is equal to some <span class="arithmatex">\(\Delta t\)</span> (say 0.1 sec). 
+Then we could rewrite our equations as </p>
+<div class="arithmatex">\[ x_k = x_{k-1} + v_{k-1}\Delta t + \frac{1}{2}a(\Delta t)^2 \]</div>
+<div class="arithmatex">\[ v_k = v_{k-1} + a\Delta t \]</div>
+<p>In other words, if at the step <span class="arithmatex">\(k-1\)</span> the object has already moved <span class="arithmatex">\(x_{k-1}\)</span> meters,
+then at the end of the <span class="arithmatex">\(k\)</span>-th step the object will move <span class="arithmatex">\(x_{k-1} + v_{k-1}\Delta t + \frac{1}{2}a(\Delta t)^2\)</span> meters. If we set <span class="arithmatex">\(x_0\)</span> and <span class="arithmatex">\(v_0\)</span> to some initial values and if we know the value of <span class="arithmatex">\(a\)</span> at each
+step then we could compute step by step all values for <span class="arithmatex">\(x_k\)</span> and <span class="arithmatex">\(v_k\)</span>.</p>
+<p>However, we have no idea about the true value of <span class="arithmatex">\(a\)</span> at each step. 
+Since we do not know the true value of acceleration at each step, we model it as a random variable:</p>
+<div class="arithmatex">\[ a \sim \mathcal{N}(0, \sigma_a^2) \]</div>
+<p>also known as "white noise".</p>
+<p>Since the Kalman filtering is a "predict-then-update" game we need first find out how we predict (prediction model).
+In other words, we are interested in deterministic equations predicting both location and the acceleration. 
+One possible approach is simply choose the accelration to be its mean value, i.e. 0. Thus we have </p>
+<div class="arithmatex">\[ x_k = x_{k-1} + v_{k-1}\Delta t + \frac{1}{2}\mathbb{E}[a](\Delta t)^2 = x_{k-1} + v_{k-1}\Delta t \]</div>
+<div class="arithmatex">\[ v_k = v_{k-1} + {E}[a]\Delta t = v_{k-1} \]</div>
+<p>In a vector form</p>
+<div class="arithmatex">\[ \begin{bmatrix} x_k \\ v_k \end{bmatrix} = \begin{bmatrix} 1 &amp; \Delta t \\ 0 &amp; 1 \end{bmatrix} \begin{bmatrix} x_{k-1} \\ v_{k-1} \end{bmatrix}
+\]</div>
+<p>or</p>
+<div class="arithmatex">\[ \mathbf{x_k} = \mathbf{F}\mathbf{x_{k-1}} \]</div>
+<p>where <span class="arithmatex">\(\mathbf{F}\)</span> is called a <strong>transition matrix</strong> (or <strong>function</strong>) and equal to</p>
+<div class="arithmatex">\[ \mathbf{F} = \begin{bmatrix} 1 &amp; \Delta t \\ 0 &amp; 1 \end{bmatrix} \]</div>
+<p>This is actually our mean vector. </p>
+<p>Next we need to derive how we predict our uncertainties (variances and covariance).
+I'll omit the heavy and tedious part of algebra and statistics and write down only the result
+for the uncertainty equations.</p>
+<div class="arithmatex">\[ Var(x_k) = Var(x_{k−1}​) + Var(v_{k−1}​)(\Delta t)^2 + 2Cov(x_{k−1}​,v_{k−1​})\Delta t + \sigma_a(\Delta t )^4  \]</div>
+<div class="arithmatex">\[ Var(v_k) = Var(v_{k−1}​) + \sigma_a (\Delta t)^2 \]</div>
+<div class="arithmatex">\[ Cov(x_k, v_k) = Cov(x_{k-1}, v_{k-1}) + \Delta t Var(v_{k-1}) + \frac{1}{2}(\Delta t)^3 \sigma_a \]</div>
+<p>To bring it to the matrix form let's introduce the <strong>covariance matrix</strong> <span class="arithmatex">\(\mathbf{P}\)</span></p>
+<div class="arithmatex">\[ 
+\mathbf{P}_{k} = \begin{bmatrix} Var(x_k) &amp;  Cov(x_k, v_k) \\  Cov(x_k, v_k) &amp; Var(v_k) \end{bmatrix}
+\]</div>
+<p>and </p>
+<p>the <strong>process noise matrix</strong></p>
+<div class="arithmatex">\[ 
+\mathbf{Q} = \begin{bmatrix} (\Delta t)^4 &amp; \frac{1}{2}(\Delta t)^3 \\ \frac{1}{2}(\Delta t)^3 &amp; (\Delta t)^2  \end{bmatrix}\sigma_a
+\]</div>
+<p>then the matrix form of our uncertainty equations will look like the following</p>
+<div class="arithmatex">\[ \mathbf{P}_k = \mathbf{F}\mathbf{P}_{k-1}\mathbf{F}^T + \mathbf{Q} \]</div>
+<p>Next is the update step.</p>
+<h3 id="update">Update</h3>
+<p>The update step of the Kalman filter corrects the predicted state <span class="arithmatex">\(\mathbf{x}_k\)</span> 
+estimate using new measurements <span class="arithmatex">\(\mathbf{z}\)</span>. 
+It refines the estimate of the system's state by combining the predicted state and the difference between
+the predicted state and the measurement. The funny and "smart" name for this simple notion (difference) is <strong>residual</strong>.
+The goal is to reduce the uncertainty using the latest measurement and predicted state values. In other words, the update step simply scales down the covariance matrix <span class="arithmatex">\(\mathbf{P}_k\)</span> which is our uncertatinty indicator.  </p>
+<p>Let's start with the residual. From our problem statement we know that we can only read objects location. Therefore, our measurement is simply a postion scalar <span class="arithmatex">\(z_k\)</span>. In scallar form the residual look like</p>
+<div class="arithmatex">\[ y_k = z_k - x_k \]</div>
+<p>where <span class="arithmatex">\(x_k\)</span> is the latest predicted location. However, our state is a column vector <span class="arithmatex">\(\mathbf{x_k}\)</span> and 
+hence in order to convert the residual in the matrix form we define a matrix <span class="arithmatex">\(\mathbf{H} = [1, 0]\)</span>
+and define the residual as </p>
+<div class="arithmatex">\[ \mathbf{y}_k = [z_k] - [1, 0] \begin{bmatrix} x_k \\ v_k \end{bmatrix} = \mathbf{z}_k - \mathbf{H}\mathbf{x}_k \]</div>
+<p>The matrix <span class="arithmatex">\(\mathbf{H}\)</span> projects <span class="arithmatex">\(\mathbf{x}_k\)</span> onto <span class="arithmatex">\(x_k\)</span> resulting in a <span class="arithmatex">\(1\times 1\)</span> matrix which is subtracted from <span class="arithmatex">\([z_k]\)</span>. So, we basically compute <span class="arithmatex">\(z_k - x_k\)</span> in a matrix form.</p>
+<div class="arithmatex">\[ [1, 0] \begin{bmatrix} Var(x_k) &amp;  Cov(x_k, v_k) \\  Cov(x_k, v_k) &amp; Var(v_k) \end{bmatrix} \begin{bmatrix} 1 \\ 0 \end{bmatrix} \]</div>
+<div class="arithmatex">\[ = [Var(x_k),  Cov(x_k, v_k ] \begin{bmatrix} 1 \\ 0 \end{bmatrix} = [Var(x_k)] \]</div>
+<p>So, </p>
+<div class="arithmatex">\[ \mathbf{S} = \mathbf{H}\mathbf{P}_k\mathbf{H}^T + \mathbf{R} = [Var(x_k)] + [\sigma_R] = [Var(x_k) + \sigma_R]\]</div>
+<p>and the Kalman Gain is</p>
+<div class="arithmatex">\[ \mathbf{K} = \mathbf{P}_k\mathbf{H}^T \mathbf{S}^{-1} = \begin{bmatrix} \frac{Var(x_k)}{Var(x_k) + \sigma_R)} \\ \frac{Cov(x_k, v_k)}{Var(x_k) + \sigma_R)} \end{bmatrix} \]</div>
+<p>Once we have the residual and the Kalman gain we can update the state </p>
+<div class="arithmatex">\[ \mathbf{x_k} = \mathbf{x_k} + \mathbf{K}\mathbf{y_k} \]</div>
+<p>and the covariance matrix is updated like</p>
+<div class="arithmatex">\[ \mathbf{P_k} = (\mathbf{I}− \mathbf{K}\mathbf{H})\mathbf{P_k} \]</div>
+<h2 id="putting-it-all-together">Putting It All Together</h2>
+<p>We are given an object moving across the <span class="arithmatex">\(x\)</span> axis with a variable velocity. 
+We are able to measure only the location of the object and we have no idea about the accleration of the object.
+However we do know the degree of uncertainty of the accleration in terms of variance <span class="arithmatex">\(\sigma_a^2\)</span> with <span class="arithmatex">\(\mu_a = 0\)</span>, known as white noise.</p>
+<p>We also know the measurement noise <span class="arithmatex">\(\sigma_R^2\)</span> - how much we trust in measurements. 
+We recieve measurements every <span class="arithmatex">\(\Delta t\)</span> time units (e.g. seconds).</p>
+<p>So, initially we have:</p>
+<ul>
+<li><span class="arithmatex">\(\Delta t\)</span> - time step (e.g. <span class="arithmatex">\(0.5\)</span>)</li>
+<li><span class="arithmatex">\(\sigma_a^2\)</span> - variance of accleration (where <span class="arithmatex">\(a\)</span> is Gaussian with <span class="arithmatex">\(\mu_a = 0\)</span>), process noise</li>
+<li><span class="arithmatex">\(\sigma_z^2\)</span> - measurement noise</li>
+</ul>
+<p>Then using those qunatities we set the transition matrix (function) as </p>
+<div class="arithmatex">\[ \mathbf{F} = \begin{bmatrix} 1 &amp; \Delta t \\ 0 &amp; 1 \end{bmatrix} \]</div>
+<p>the process noise matrix as </p>
+<div class="arithmatex">\[ 
+\mathbf{Q} = \begin{bmatrix} (\Delta t)^4 &amp; \frac{1}{2}(\Delta t)^3 \\ \frac{1}{2}(\Delta t)^3 &amp; (\Delta t)^2  \end{bmatrix}\sigma_a
+\]</div>
+<p>the measurement noise matrix as </p>
+<div class="arithmatex">\[ \mathbf{R} = [\sigma_z^2] \]</div>
+<p>the process noise matrix as </p>
+<div class="arithmatex">\[ \mathbf{Q} = [\sigma_a^2] \]</div>
+<p>and since we measure only the location (and no velocity) we set the projection vector <span class="arithmatex">\(\mathbf{H}\)</span> to</p>
+<div class="arithmatex">\[ \mathbf{H} = [1, 0]\]</div>
+<p>Once we setup all necessary matrixes and vectors we iteratively perform prediction and update as following</p>
+<p><strong>Initially</strong></p>
+<ol>
+<li><span class="arithmatex">\(\mathbf{x}_0 = \text{some reasonable vector}\)</span></li>
+<li><span class="arithmatex">\(\mathbf{P}_0 = \text{some reasonable matrix}\)</span></li>
+</ol>
+<p><strong>For <span class="arithmatex">\(k=1,2,\dots\)</span> and measurements <span class="arithmatex">\(\mathbf{z_k}\)</span> repeat the following steps:</strong></p>
+<p><strong>Predict:</strong></p>
+<ol>
+<li><span class="arithmatex">\(\mathbf{x}_k = \mathbf{x}_{k-1}\mathbf{F}\)</span></li>
+<li><span class="arithmatex">\(\mathbf{P}_k = \mathbf{F}\mathbf{P}_{k-1}\mathbf{F}^T + \mathbf{Q}\)</span></li>
+</ol>
+<p><strong>Update:</strong></p>
+<ol>
+<li><span class="arithmatex">\(\mathbf{S} = \mathbf{H}\mathbf{P}_k\mathbf{H}^T + \mathbf{R}\)</span></li>
+<li><span class="arithmatex">\(\mathbf{K} = \mathbf{P}_k\mathbf{H}^T\mathbf{S}^{−1}\)</span> (Kalman gain)</li>
+<li><span class="arithmatex">\(\mathbf{y} = \mathbf{z}_k − \mathbf{H}\mathbf{x}_k\)</span> (Residual)</li>
+<li><span class="arithmatex">\(\mathbf{x}_k = \mathbf{x}_k + \mathbf{K}\mathbf{y}\)</span> (Update the state)</li>
+<li><span class="arithmatex">\(\mathbf{P}_k = (\mathbf{I}− \mathbf{K}\mathbf{H})\mathbf{P}_k\)</span> (Update the covariance matrix)</li>
+</ol>
+<h2 id="rust-implementation">Rust Implementation</h2>
+<pre><code class="language-rust">use nalgebra::{Matrix1, Matrix2, RowVector2, Vector2};
+
+type KVector = Vector2&lt;f64&gt;;
+type KMatrix = Matrix2&lt;f64&gt;;
+type KRowVector = RowVector2&lt;f64&gt;;
+
+pub fn run(true_data: &amp;Vec&lt;KVector&gt;, noisy_data: &amp;Vec&lt;KVector&gt;, dt: f64, var_a: f64, var_z: f64) -&gt; Vec&lt;KVector&gt;{
+  // State vector: [position, velocity]
+  let mut x = KVector::new(noisy_data[0].x, noisy_data[0].y);
+  let f = KMatrix::new(1.0, dt, 0.0, 1.0);
+  let mut p = KMatrix::new(500.0, 0.0, 0.0, 49.0);
+  let q = build_process_noise_matrix(dt, var_a);
+  let h = KRowVector::new(1.0, 0.0);
+  let r = Matrix1::new(var_z);
+
+  let mut filtered_data = Vec::new();
+
+  for i in 0..true_data.len() {
+    let z = Matrix1::new(noisy_data[i].x);
+    let (x_pred, p_pred) = predict(&amp;x, &amp;f, &amp;p, &amp;q);
+    let (x_upd, p_upd) = update(&amp;x_pred, &amp;h, &amp;r, &amp;p_pred, &amp;z);
+
+    filtered_data.push(x_upd);
+
+    p = p_upd;
+    x = x_upd;
+  }
+
+  filtered_data
+}
+
+fn predict(x: &amp;KVector, f: &amp;KMatrix, p: &amp;KMatrix, q: &amp;KMatrix) -&gt; (KVector, KMatrix) {
+  let x_pred = f * x;
+  let p_pred = f * p * f.transpose() + q;
+
+  (x_pred, p_pred)
+}
+
+fn update(x: &amp;KVector, h: &amp;KRowVector, r: &amp;Matrix1&lt;f64&gt;, p_pred: &amp;KMatrix, z: &amp;Matrix1&lt;f64&gt;) -&gt; (KVector, KMatrix) {
+  let y = z - h*x;
+  let s = h * p_pred * h.transpose() + r;
+  let k = p_pred * h.transpose() * s.try_inverse().unwrap();
+  let x_upd = x + k * y;
+  let p_upd = (KMatrix::identity() - k * h) * p_pred;
+
+  (x_upd, p_upd)
+}
+
+fn build_process_noise_matrix(dt: f64, var_a: f64) -&gt; KMatrix {
+  KMatrix::new(
+    0.25 * dt.powi(4) * var_a,
+    0.5 * dt.powi(3) * var_a,
+    0.5 * dt.powi(3) * var_a,
+    dt.powi(2) * var_a
+  )
+}
+</code></pre>
+<h2 id="simulation">Simulation</h2>
+<p>Consider a target moving along a horizontal straight path at distance of 750 meters. 
+Assume that another object has sensors that receive the target's <span class="arithmatex">\(x\)</span>-coordinate with a variance of 100, 
+meaning the error deviates by ±10 meters. The target's initiali <span class="arithmatex">\(x\)</span> (location) is 10.
+For simplicity, let’s assume the scenario takes place in a 2D <span class="arithmatex">\(xy\)</span> plane. 
+I wrote (in C++) a simulation of the object "chasing" the target with the following parameters:"</p>
+<ul>
+<li><span class="arithmatex">\(\sigma_a = 0.0015\)</span></li>
+<li><span class="arithmatex">\(\sigma_z = 100\)</span></li>
+<li><span class="arithmatex">\(\Delta t = 0.05\)</span></li>
+</ul>
+<p>For simplicity I have used the Pure Pursuit Method where I always point directly at where the target is right now. 
+For moving targets, this results in a curved "tail-chase" path. The Proportional Navigation is next time.😉</p>
+<video width="640" height="360" controls>
+  <source src="../videos/sim1.mov">
+  Your browser does not support the video tag.
+</video>
+
+<pre><code class="language-bash">...
+Kalman x: 8.3652, Actual x: 11.9220, Noisy x: 0.1377
+Kalman x: 8.6635, Actual x: 11.9533, Noisy x: 14.4880
+Kalman x: 8.9405, Actual x: 11.9847, Noisy x: 13.0846
+Kalman x: 9.2020, Actual x: 12.0161, Noisy x: 13.2499
+Kalman x: 9.3709, Actual x: 12.0474, Noisy x: 0.1083
+Kalman x: 9.6064, Actual x: 12.0786, Noisy x: 15.5444
+Kalman x: 9.8763, Actual x: 12.1100, Noisy x: 21.5835
+Kalman x: 9.9916, Actual x: 12.1412, Noisy x: 1.5444
+Kalman x: 10.1950, Actual x: 12.1723, Noisy x: 15.3873
+...
+Kalman x: 735.5132, Actual x: 736.5301, Noisy x: 744.0085
+Kalman x: 735.5388, Actual x: 736.5758, Noisy x: 731.8225
+Kalman x: 735.5973, Actual x: 736.6214, Noisy x: 740.0275
+Kalman x: 735.6507, Actual x: 736.6670, Noisy x: 738.8303
+Kalman x: 735.6933, Actual x: 736.7127, Noisy x: 736.1982
+Kalman x: 735.8384, Actual x: 736.7583, Noisy x: 761.7216
+...
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
