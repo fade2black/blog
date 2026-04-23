@@ -361,3 +361,24 @@ The following logs show the Kalman filter in action.
 12952. Actual(x): 388.6412, Noisy(x): 388.0000, Filtered(x): 388.0827
 ...
 ```
+
+Next let's set $\sigma_z = 99856 = (316*316$ meaning the deviation is 316 
+and see how the filter works:
+
+```bash
+...
+11976. Actual(x): 322.2363, Noisy(x): 201.6989, Filtered(x): 318.5341
+11977. Actual(x): 322.2599, Noisy(x): 905.1715, Filtered(x): 318.9255
+11978. Actual(x): 322.2835, Noisy(x): 1232.8774, Filtered(x): 319.5221
+11979. Actual(x): 322.3070, Noisy(x): 689.6026, Filtered(x): 319.7781
+11980. Actual(x): 322.3306, Noisy(x): 370.8480, Filtered(x): 319.8343
+11981. Actual(x): 322.3540, Noisy(x): -24.0735, Filtered(x): 319.6431
+11982. Actual(x): 322.3775, Noisy(x): -36.7596, Filtered(x): 319.4439
+11983. Actual(x): 322.4010, Noisy(x): 30.3585, Filtered(x): 319.2869
+11984. Actual(x): 322.4246, Noisy(x): 281.8702, Filtered(x): 319.2874
+11985. Actual(x): 322.4482, Noisy(x): 510.3080, Filtered(x): 319.4311
+11986. Actual(x): 322.4719, Noisy(x): -94.0651, Filtered(x): 319.1961
+...
+```
+Inspite of big differences between actual and noisy $x$ values (locations),
+the filter still computes a close to actual value for $x$.
