@@ -362,7 +362,7 @@ The following logs show the Kalman filter in action.
 ...
 ```
 
-Next let's set $\sigma_z = 99856 (= 316*316$) meaning the deviation is 316 
+Next let's set $\sigma_z = 99856$ ($ = 316^2$) meaning the deviation is 316 
 and see how the filter works:
 
 ```bash
