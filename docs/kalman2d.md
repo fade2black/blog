@@ -301,7 +301,7 @@ fn build_process_noise_matrix(dt: f64, var_a: f64) -> KMatrix {
 
 ## Simulation
 
-Consider a target moving along a horizontal straight path at distance of 750 meters. 
+Consider a target moving along a horizontal straight path at a distance of 750 meters. 
 Assume that another object has sensors that receive the target's $x$-coordinate with a variance of 100, 
 meaning the error deviates by ±10 meters. The target's initiali $x$ (location) is 10.
 For simplicity, let’s assume the scenario takes place in a 2D $xy$ plane. 
