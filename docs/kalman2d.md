@@ -362,7 +362,7 @@ The following logs show the Kalman filter in action.
 ...
 ```
 
-Next let's set $\sigma_z = 99856$ ($ = 316^2$) meaning the deviation is 316 
+Next let's set $\sigma_z = 99856$ ( $= 316^2$ ) meaning the deviation is $316$ meters 
 and see how the filter works:
 
 ```bash
@@ -381,4 +381,4 @@ and see how the filter works:
 ...
 ```
 Inspite of big differences between actual and noisy $x$ values (locations),
-the filter still computes a close to actual value for $x$.
+the filter still computes a close to actual values for $x$.
