@@ -891,6 +891,12 @@ I wrote (in C++) a simulation of the object "chasing" the target with the follow
 <li><span class="arithmatex">\(\sigma_z = 100\)</span></li>
 <li><span class="arithmatex">\(\Delta t = 0.05\)</span></li>
 </ul>
+<p>Initially the state vector is set to </p>
+<div class="arithmatex">\[ \mathbf{x} = \begin{bmatrix} 200 \\ 200 \end{bmatrix} \]</div>
+<p>Transition matrix is </p>
+<div class="arithmatex">\[ \mathbf{F} = \begin{bmatrix} 1 &amp; 0.05 \\ 0 &amp; 1 \end{bmatrix} \]</div>
+<p>and the measurement (projection) vector is </p>
+<div class="arithmatex">\[ \mathbf{H} = [1, 0] \]</div>
 <p>For simplicity I have used the Pure Pursuit Method where I always point directly at where the target is right now. 
 For moving targets, this results in a curved "tail-chase" path. The Proportional Navigation is next time.😉</p>
 <video width="640" height="360" controls>
@@ -898,23 +904,32 @@ For moving targets, this results in a curved "tail-chase" path. The Proportional
   Your browser does not support the video tag.
 </video>
 
-<pre><code class="language-bash">...
-Kalman x: 8.3652, Actual x: 11.9220, Noisy x: 0.1377
-Kalman x: 8.6635, Actual x: 11.9533, Noisy x: 14.4880
-Kalman x: 8.9405, Actual x: 11.9847, Noisy x: 13.0846
-Kalman x: 9.2020, Actual x: 12.0161, Noisy x: 13.2499
-Kalman x: 9.3709, Actual x: 12.0474, Noisy x: 0.1083
-Kalman x: 9.6064, Actual x: 12.0786, Noisy x: 15.5444
-Kalman x: 9.8763, Actual x: 12.1100, Noisy x: 21.5835
-Kalman x: 9.9916, Actual x: 12.1412, Noisy x: 1.5444
-Kalman x: 10.1950, Actual x: 12.1723, Noisy x: 15.3873
+<p>The following logs show the Kalman filter in action.</p>
+<pre><code class="language-bash">1. Actual(x): 10.0288, Noisy(x): 6.1229, Filtered(x): 39.7647
+2. Actual(x): 10.0575, Noisy(x): 13.5440, Filtered(x): 32.1846
+3. Actual(x): 10.0863, Noisy(x): 3.1338, Filtered(x): 28.5397
+4. Actual(x): 10.1151, Noisy(x): 8.4791, Filtered(x): 29.7435
+5. Actual(x): 10.1440, Noisy(x): 18.1567, Filtered(x): 33.8192
+6. Actual(x): 10.1729, Noisy(x): 5.3147, Filtered(x): 35.6195
+7. Actual(x): 10.2018, Noisy(x): 16.5388, Filtered(x): 39.4727
 ...
-Kalman x: 735.5132, Actual x: 736.5301, Noisy x: 744.0085
-Kalman x: 735.5388, Actual x: 736.5758, Noisy x: 731.8225
-Kalman x: 735.5973, Actual x: 736.6214, Noisy x: 740.0275
-Kalman x: 735.6507, Actual x: 736.6670, Noisy x: 738.8303
-Kalman x: 735.6933, Actual x: 736.7127, Noisy x: 736.1982
-Kalman x: 735.8384, Actual x: 736.7583, Noisy x: 761.7216
+196. Actual(x): 15.6898, Noisy(x): 3.8002, Filtered(x): 17.9968
+197. Actual(x): 15.7188, Noisy(x): 9.4194, Filtered(x): 17.8752
+198. Actual(x): 15.7479, Noisy(x): 27.4758, Filtered(x): 18.1168
+199. Actual(x): 15.7770, Noisy(x): 20.3383, Filtered(x): 18.2120
+200. Actual(x): 15.8061, Noisy(x): 21.8255, Filtered(x): 18.3349
+...
+2803. Actual(x): 96.9489, Noisy(x): 110.1581, Filtered(x): 96.9406
+2804. Actual(x): 96.9809, Noisy(x): 103.3817, Filtered(x): 96.9955
+2805. Actual(x): 97.0128, Noisy(x): 112.6890, Filtered(x): 97.0830
+2806. Actual(x): 97.0447, Noisy(x): 102.3809, Filtered(x): 97.1340
+2807. Actual(x): 97.0765, Noisy(x): 105.9592, Filtered(x): 97.1974
+...
+12948. Actual(x): 388.5226, Noisy(x): 381.7876, Filtered(x): 387.9539
+12949. Actual(x): 388.5523, Noisy(x): 398.7570, Filtered(x): 388.0203
+12950. Actual(x): 388.5819, Noisy(x): 379.2106, Filtered(x): 388.0179
+12951. Actual(x): 388.6115, Noisy(x): 390.3285, Filtered(x): 388.0544
+12952. Actual(x): 388.6412, Noisy(x): 388.0000, Filtered(x): 388.0827
 ...
 </code></pre>
 
